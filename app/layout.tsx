@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar'
 import './globals.css'
 
 export const metadata = {
@@ -12,7 +13,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'use-credentials'} />
+        <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet" />
+      </head>
+      <body>
+        <Navbar />
+
+        {children}
+        
+        </body>
     </html>
   )
 }
