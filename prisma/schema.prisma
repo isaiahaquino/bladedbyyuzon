@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model Widget {
+  id            String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+}
+
+model Appointment {
+  id            String        @id @default(cuid())
+  createdAt     DateTime      @default(now())
+  startTime     DateTime    
+  endTime       DateTime
+  status        String 
+  firstName     String  
+  lastName      String?
+  phoneNum      String 
+  availId       String
+  availability  Availability  @relation(fields: [availId], references: [id])
+}
+
+model Availability {
+  id            String        @id @default(cuid())
+  date          DateTime      @db.Date
+  startTime     DateTime
+  endTime       DateTime
+  appointments  Appointment[] 
+}
