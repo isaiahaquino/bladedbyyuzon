@@ -8,7 +8,6 @@ import { useState, useEffect } from "react"
 import AvailabilityForm from "@/components/AvailabilityForm"
 
 export default function AdminHome() {
-  window.document.documentElement.style.colorScheme = "dark"
 
   const [appointmentCategory, setAppointmentCategory] = useState('')
   const [availabilityCategory, setAvailabilityCategory] = useState('')
