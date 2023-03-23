@@ -9,11 +9,11 @@ interface IAvail {
 }
 
 export default function AvailabilityList(props:IAvail) {
-  const [delPopup, setDelPopup] = useState({isOpen: false, id: ""})
+  const [delPopup, setDelPopup] = useState({isOpen: false, id: "", date: ""})
 
   return (
     <div className="my-10 overflow-x-scroll rounded-sm relative">
-      { delPopup.isOpen ? <DelModal handler={() => setDelPopup({isOpen: false, id: ""})} id={delPopup.id}  /> : null }
+      { delPopup.isOpen ? <DelModal handler={() => setDelPopup({isOpen: false, id: "", date: ""})} id={delPopup.id} date={delPopup.date}  /> : null }
       
       <table className="w-full bg-grey text-black">
         <thead>
@@ -45,7 +45,7 @@ export default function AvailabilityList(props:IAvail) {
                 </td>
                 <td className="">
                   <button type="button" className="p-2"><TbEdit size={25} /></button>
-                  <button type="button" className="p-2" onClick={() => setDelPopup({ isOpen: true, id: avail.id})}><TbTrashXFilled size={25} /></button>
+                  <button type="button" className="p-2" onClick={() => setDelPopup({ isOpen: true, id: avail.id, date: moment(avail.date).format("MMM D")})}><TbTrashXFilled size={25} /></button>
                 </td>
               </tr>
             ))

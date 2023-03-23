@@ -43,11 +43,11 @@ export default function AvailabilityForm(props: IAvailForm) {
   return (
     <div className="bg-black w-full p-4 flex flex-col gap-4 items-center border-[2px] rounded border-grey-dark">
       <h1 className="text-2xl text-grey px-4 py-2 border-b-grey-dark border-b-2">Create New Availability</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 text-grey my-6">
+      <form onSubmit={handleSubmit} className="w-full px-10 flex flex-col items-stretch gap-4 text-grey my-6">
         <div className="relative">
-          <label className="absolute top-[-0.7rem] left-3 bg-black px-2" htmlFor="avialFormDate">Select a Date:</label>
+          <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="avialFormDate">Select a Date:</label>
           <input 
-            className="dark py-4 px-10 bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
+            className="py-4 px-14 w-full h-[4rem] bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
             name="availFormDate" 
             id="availFormDate" 
             type="date" 
@@ -57,9 +57,9 @@ export default function AvailabilityForm(props: IAvailForm) {
           />
         </div>
         <div className="relative">
-          <label className="absolute top-[-0.7rem] left-3 bg-black px-2" htmlFor="availFormStartTime">Select a Start Time:</label>
+          <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="availFormStartTime">Select a Start Time:</label>
           <input 
-            className="py-4 px-14 bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
+            className="py-4 px-14 w-full bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
             name="avialFormStartTime" 
             id="availFormStartTime" 
             type="time" 
@@ -68,9 +68,9 @@ export default function AvailabilityForm(props: IAvailForm) {
           />
         </div>  
         <div className="relative">
-          <label className="absolute top-[-0.7rem] left-3 bg-black px-2" htmlFor="availFormEndTime">Select a End Time:</label>
+          <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="availFormEndTime">Select a End Time:</label>
           <input 
-            className="py-4 px-14 bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
+            className="py-4 px-14 w-full bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
             name="availFormEndTime" 
             id="availFormEndTime" 
             type="time"
@@ -79,7 +79,7 @@ export default function AvailabilityForm(props: IAvailForm) {
             required 
           />
         </div>
-        <div className="flex gap-4 my-4">
+        <div className="flex gap-4 justify-center my-4">
           <Button title="Cancel" handler={props.handler} styles="px-6" />
           <input type="submit" className="font-serif bg-yellow px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
         </div>
