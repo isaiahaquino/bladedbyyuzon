@@ -13,7 +13,7 @@ export async function GET() {
         }
       },
       orderBy: {
-        date: 'desc'
+        date: 'asc'
       },
       select: {
         id: true,
@@ -22,7 +22,7 @@ export async function GET() {
         endTime: true,
         appointments: {
           orderBy: {
-            startTime: 'desc'
+            startTime: 'asc'
           }
         }
       }

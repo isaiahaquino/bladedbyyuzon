@@ -6,9 +6,8 @@ import { NextRequest, NextResponse } from "next/server"
 export async function GET() {
   try {
     const appointments = await prisma.appointment.findMany({
-      orderBy: {
-        startTime: 'desc',
-      }
+      orderBy: { startTime: 'asc' },
+      where: { startTime: { gte: new Date() } }
     })
     return NextResponse.json({ appointments })
   } catch (error) {

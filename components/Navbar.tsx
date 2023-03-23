@@ -9,17 +9,17 @@ export default function Navbar() {
   const [menu, setMenu] = useState(false)
 
   return (
-    <nav className='w-screen'>
+    <nav className='w-screen shadow-lg'>
       <div className='w-full px-4 py-4 flex flex-row justify-between items-center'>
-        <Link href='/' className='font-gloock text-2xl'>BladedByYuzon</Link>
+        <Link href='/' className='font-gloock text-2xl text-grey'>BladedByYuzon</Link>
 
         <button type='button' onClick={() => setMenu(true)}>
-          <BiMenu size={30} />
+          <BiMenu size={30} color="#cfdbd5" />
         </button>
       </div>
       
       <div className={`w-screen h-screen top-0 -left-10 z-20 flex flex-col px-4 py-4 bg-white transition duration-500 ease-in-out ${menu ? 'absolute opacity-100 translate-x-10' : 'hidden opacity-0'}`}>
-        <button type='button' className=' self-end' onClick={() => setMenu(false)}>
+        <button type='button' className='self-end' onClick={() => setMenu(false)}>
           <BiX size={30} />
         </button>
 
