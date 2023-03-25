@@ -16,21 +16,21 @@ export default function AppointmentList(props:IApptList) {
             <th scope="col" className="px-2 min-w-[7rem]">Name</th>
             <th scope="col" className="px-2 min-w-[6rem]">Time</th>
             <th scope="col" className="px-2">Status</th>
-            <th scope="col" className="px-2">Phone</th>
+            <th scope="col" className="px-2 min-w-[8rem]">Phone</th>
           </tr>
         </thead>
         <tbody className="[&>*:nth-child(even)]:bg-white py-4">
           {
             props.data.appointments?.map((appt, index) => (
               <tr className="border-b-grey-dark border-b-[1px]" key={index}>
-                <td className="pl-2">{`${moment(appt.startTime).format('MMM D')}`}</td>
+                <td className="text-center">{`${moment(appt.startTime).format('MMM D')}`}</td>
                 <td>{`${appt.firstName} ${appt.lastName == null ? '' : appt.lastName}`}</td>
                 <td>
                   <div>{`${moment(appt.startTime).format('LT')}`} -</div>
                   <div>{`${moment(appt.endTime).format('LT')}`}</div>
                 </td>
-                <td>{appt.status}</td>
-                <td className="px-2">{appt.phoneNum}</td>
+                <td className="text-center">{appt.status}</td>
+                <td className="text-center">{appt.phoneNum}</td>
               </tr>
             ))
           }

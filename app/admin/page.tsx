@@ -7,16 +7,21 @@ import Button from "@/components/Button"
 import { useState, useEffect } from "react"
 import AvailabilityForm from "@/components/AvailabilityForm"
 import AvailabilityEdit from "@/components/AvailabilityEdit"
+import AppointmentForm from "@/components/AppointmentForm"
 
 export default function AdminHome() {
 
+  // Table data
   const [appointmentCategory, setAppointmentCategory] = useState('')
   const [availabilityCategory, setAvailabilityCategory] = useState('')
-  const [scheduleData, setScheduleData] = useState({appointments: []})
+  const [appointmentData, setAppointmentData] = useState({appointments: []})
   const [availabilityData, setAvailabilityData] = useState({availabilities: []})
+
+  // Modals
   const [availabilityForm, setAvailabilityForm] = useState(false)
   const [availabilityEdit, setAvailabilityEdit] = useState(false)
   const [availabilityEditData, setAvailabilityEditData] = useState({})
+  const [appointmentForm, setAppointmentForm] = useState(false)
 
   useEffect(() => {
     const getData = async () => {
@@ -26,7 +31,7 @@ export default function AdminHome() {
       return res.json()
     }
     getData()
-      .then((data) => setScheduleData(data))
+      .then((data) => setAppointmentData(data))
   }, [appointmentCategory])
 
   useEffect(() => {
@@ -67,22 +72,23 @@ export default function AdminHome() {
         <h1 className="text-3xl text-grey">Summary</h1>
       </section> */}
 
-      {availabilityForm ? <AvailabilityForm handler={() => setAvailabilityForm(false)} /> : null}
-      {availabilityEdit ? <AvailabilityEdit handler={() => setAvailabilityEdit(false)} data={availabilityEditData} /> : null}
 
 
-      <section className="my-10">
+      <section className="my-10 relative">
+        {availabilityEdit ? <AvailabilityEdit handler={() => setAvailabilityEdit(false)} data={availabilityEditData} /> : null}
+        
         <h1 className="text-3xl my-4 text-grey">Availability</h1>
         <Tabs tabs={availabilityTabs.tabs} />
         <AvailabilityList data={availabilityData} editHandler={handleAvailEdit} />
-        {!availabilityForm ? 
-        <Button title="Add Availability" handler={() => setAvailabilityForm(true)} styles="" /> : null}
+        
+        {availabilityForm ? <AvailabilityForm handler={() => setAvailabilityForm(false)} /> : <Button title="Add Availability" handler={() => setAvailabilityForm(true)} styles="" /> }
       </section>
 
-      <section className="mt-[10rem]">
+      <section className="mt-[10rem] mb-[4rem] relative">
         <h1 className="text-3xl my-4 text-grey">Schedule</h1>
         <Tabs tabs={appointmentTabs.tabs} />
-        <AppointmentList data={scheduleData} />
+        <AppointmentList data={appointmentData} />
+        {appointmentForm ? <AppointmentForm handler={() => setAppointmentForm(false)} /> : <Button title="Add Appointment" handler={() => setAppointmentForm(true)} styles="" /> }
       </section>
     </div>
   )
