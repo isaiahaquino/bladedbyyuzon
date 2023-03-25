@@ -38,7 +38,7 @@ export async function GET(request:NextRequest, {params}:any) {
 
 export async function PUT(request: NextRequest, {params}:any) {
   try {
-    const id = params.id[0] as string
+    const id = params.id as string
     // Updates current availability
     const data = await request.json()
     const availability = {
@@ -65,7 +65,7 @@ export async function PUT(request: NextRequest, {params}:any) {
 
 export async function DELETE(request:NextRequest, {params}:any) {
   try {
-    const id = params.id[0] as string
+    const id = params.id as string
     const deleteAvailability = await prisma.availability.delete({
       where: {
         id: id

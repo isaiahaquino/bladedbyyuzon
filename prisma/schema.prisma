@@ -29,7 +29,7 @@ model Appointment {
 
 model Availability {
   id            String        @id @default(cuid())
-  date          DateTime      @db.Date
+  date          DateTime      
   startTime     DateTime
   endTime       DateTime
   appointments  Appointment[] 

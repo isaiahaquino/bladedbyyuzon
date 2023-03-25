@@ -6,6 +6,7 @@ import Tabs from "@/components/Tabs"
 import Button from "@/components/Button"
 import { useState, useEffect } from "react"
 import AvailabilityForm from "@/components/AvailabilityForm"
+import AvailabilityEdit from "@/components/AvailabilityEdit"
 
 export default function AdminHome() {
 
@@ -14,6 +15,8 @@ export default function AdminHome() {
   const [scheduleData, setScheduleData] = useState({appointments: []})
   const [availabilityData, setAvailabilityData] = useState({availabilities: []})
   const [availabilityForm, setAvailabilityForm] = useState(false)
+  const [availabilityEdit, setAvailabilityEdit] = useState(false)
+  const [availabilityEditData, setAvailabilityEditData] = useState({})
 
   useEffect(() => {
     const getData = async () => {
@@ -53,18 +56,25 @@ export default function AdminHome() {
     ]
   }
 
+  const handleAvailEdit = (data:any) => {
+    setAvailabilityEdit(true)
+    setAvailabilityEditData(data)
+  }
 
   return (
-    <div className="px-6 mx-auto w-screen">
+    <div className="px-6 mx-auto w-screen relative">
       {/* <section className="mt-[5rem]">
         <h1 className="text-3xl text-grey">Summary</h1>
       </section> */}
 
+      {availabilityForm ? <AvailabilityForm handler={() => setAvailabilityForm(false)} /> : null}
+      {availabilityEdit ? <AvailabilityEdit handler={() => setAvailabilityEdit(false)} data={availabilityEditData} /> : null}
+
+
       <section className="my-10">
         <h1 className="text-3xl my-4 text-grey">Availability</h1>
         <Tabs tabs={availabilityTabs.tabs} />
-        <AvailabilityList data={availabilityData} />
-        {availabilityForm ? <AvailabilityForm handler={() => setAvailabilityForm(false)} /> : null}
+        <AvailabilityList data={availabilityData} editHandler={handleAvailEdit} />
         {!availabilityForm ? 
         <Button title="Add Availability" handler={() => setAvailabilityForm(true)} styles="" /> : null}
       </section>

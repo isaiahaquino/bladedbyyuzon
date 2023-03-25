@@ -10,12 +10,18 @@ export default function DelModal(props:IDelModal) {
     // TODO: Confirm Delete
     const deleteAvail = async () => {
       const res = await fetch(`/api/availability/${id}`, {
-        method: "GET"
+        method: "DELETE"
       })
-      return res.json()
+      return res
     }
     deleteAvail()
-      .then((data) => console.log(JSON.stringify(data)))
+      .then(res => {
+        if (!res.ok) {
+          alert(res.statusText)
+        } else {
+          props.handler()
+        }
+      })
   }
 
   return (

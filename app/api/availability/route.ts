@@ -52,7 +52,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if date already set
-    const availabilitys = await prisma.availability.findMany({ select: { date: true } })
+    const availabilitys = await prisma.availability.findMany({
+      where: { date: { gte: new Date() } },
+      select: { date: true } 
+    })    
     for (const avail of availabilitys) {
       if (availability.date.getTime() == new Date(avail.date).getTime()) {
         return new Response('Availability date already exists.', { status: 400 })

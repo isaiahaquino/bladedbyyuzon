@@ -6,6 +6,7 @@ import DelModal from "./DelModal"
 
 interface IAvail {
   data: TApiAllAvailabilitiesResp
+  editHandler: any
 }
 
 export default function AvailabilityList(props:IAvail) {
@@ -15,7 +16,7 @@ export default function AvailabilityList(props:IAvail) {
     <div className="my-10 overflow-x-scroll rounded-sm relative">
       { delPopup.isOpen ? <DelModal handler={() => setDelPopup({isOpen: false, id: "", date: ""})} id={delPopup.id} date={delPopup.date}  /> : null }
       
-      <table className="w-full bg-grey text-black">
+      <table className="w-fill bg-grey text-black">
         <thead>
           <tr className="bg-white py-10 border-b-black border-b-2">
             <th scope="col" className="px-2 min-w-[4rem]">Date</th>
@@ -44,7 +45,7 @@ export default function AvailabilityList(props:IAvail) {
                   </ul>  
                 </td>
                 <td className="">
-                  <button type="button" className="p-2"><TbEdit size={25} /></button>
+                  <button type="button" className="p-2" onClick={() => props.editHandler(avail)}><TbEdit size={25} /></button>
                   <button type="button" className="p-2" onClick={() => setDelPopup({ isOpen: true, id: avail.id, date: moment(avail.date).format("MMM D")})}><TbTrashXFilled size={25} /></button>
                 </td>
               </tr>
