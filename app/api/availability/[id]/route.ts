@@ -66,11 +66,7 @@ export async function PUT(request: NextRequest, {params}:any) {
 export async function DELETE(request:NextRequest, {params}:any) {
   try {
     const id = params.id as string
-    const deleteAvailability = await prisma.availability.delete({
-      where: {
-        id: id
-      }
-    })
+    const deleteAvailability = await prisma.availability.delete({ where: { id: id } })
     return new Response(`Deleted availability with id: ${id}`, { status: 200 })
   } catch (error) {
     return new Response('Something went wrong in DELETE!', { status: 500 })

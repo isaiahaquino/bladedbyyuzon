@@ -6,7 +6,7 @@ import moment from "moment"
 import { TApiAllAvailabilitiesResp, TApiSingleAppointmentReq } from "@/types"
 
 
-export default function AppointmentForm(props: { handler: any }) {
+export default function AppointmentEdit(props: { handler: any, data: any }) {
   const [availDates, setAvailDates] = useState<TApiAllAvailabilitiesResp>({availabilities: []})
   const [availId, setAvailId] = useState<unknown>()
   const [availDate, setAvailDate] = useState<unknown>()
@@ -75,7 +75,7 @@ export default function AppointmentForm(props: { handler: any }) {
 
   return (
     <div className="bg-black w-fill py-4 px-6 flex flex-col gap-4 items-center border-[2px] rounded border-grey-dark shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
-      <h1 className="text-2xl text-grey py-2 border-b-grey-dark border-b-2">Create New Appointment</h1>
+      <h1 className="text-2xl text-grey py-2 border-b-grey-dark border-b-2">Edit Appointment for</h1>
       <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-4 text-grey my-6">
         <fieldset className="flex gap-4">
           <div className="relative">

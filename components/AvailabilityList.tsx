@@ -14,7 +14,7 @@ export default function AvailabilityList(props:IAvail) {
 
   return (
     <div className="my-10 overflow-x-scroll rounded-sm relative">
-      { delPopup.isOpen ? <DelModal handler={() => setDelPopup({isOpen: false, id: "", date: ""})} id={delPopup.id} date={delPopup.date}  /> : null }
+      { delPopup.isOpen ? <DelModal handler={() => setDelPopup({isOpen: false, id: "", date: ""})} id={delPopup.id} value={delPopup.date} category="availability" /> : null }
       
       <table className="w-fill bg-grey text-black">
         <thead>
