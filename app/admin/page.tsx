@@ -8,6 +8,7 @@ import { useState, useEffect } from "react"
 import AvailabilityForm from "@/components/AvailabilityForm"
 import AvailabilityEdit from "@/components/AvailabilityEdit"
 import AppointmentForm from "@/components/AppointmentForm"
+import AppointmentEdit from "@/components/AppointmentEdit"
 
 export default function AdminHome() {
 
@@ -22,7 +23,13 @@ export default function AdminHome() {
   const [availabilityEdit, setAvailabilityEdit] = useState(false)
   const [availabilityEditData, setAvailabilityEditData] = useState({})
   const [appointmentForm, setAppointmentForm] = useState(false)
+  const [appointmentEdit, setAppointmentEdit] = useState(false)
+  const [appointmentEditData, setAppointmentEditData] = useState({})
 
+  // Set to dark mode
+  useEffect(() => { window.document.documentElement.style.colorScheme = "dark" }, [])
+
+  // Appointment List
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(`/api/appointments/${appointmentCategory}`, {
@@ -34,6 +41,7 @@ export default function AdminHome() {
       .then((data) => setAppointmentData(data))
   }, [appointmentCategory])
 
+  // Availability List
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(`/api/availability/${availabilityCategory}`, {
@@ -45,13 +53,13 @@ export default function AdminHome() {
       .then((data) => setAvailabilityData(data))
   }, [availabilityCategory, availabilityForm])
 
+  // Table Tabs
   const availabilityTabs = {
     tabs: [
       {title: 'Upcoming', handler: setAvailabilityCategory, slug: ''},
       {title: 'Expired', handler: setAvailabilityCategory, slug: 'expired'}
     ]
   }
-
   const appointmentTabs = {
     tabs: [
       {title: 'All', handler: setAppointmentCategory, slug: ''},
@@ -61,9 +69,14 @@ export default function AdminHome() {
     ]
   }
 
+  // Edit form handlers
   const handleAvailEdit = (data:any) => {
     setAvailabilityEdit(true)
     setAvailabilityEditData(data)
+  }
+  const handleApptEdit = (data:any) => {
+    setAppointmentEdit(true)
+    setAppointmentEditData(data)
   }
 
   return (
@@ -71,8 +84,6 @@ export default function AdminHome() {
       {/* <section className="mt-[5rem]">
         <h1 className="text-3xl text-grey">Summary</h1>
       </section> */}
-
-
 
       <section className="my-10 relative">
         {availabilityEdit ? <AvailabilityEdit handler={() => setAvailabilityEdit(false)} data={availabilityEditData} /> : null}
@@ -85,9 +96,11 @@ export default function AdminHome() {
       </section>
 
       <section className="mt-[10rem] mb-[4rem] relative">
+        {appointmentEdit ? <AppointmentEdit handler={() => setAppointmentEdit(false)} data={appointmentEditData} /> : null }
+
         <h1 className="text-3xl my-4 text-grey">Schedule</h1>
         <Tabs tabs={appointmentTabs.tabs} />
-        <AppointmentList data={appointmentData} />
+        <AppointmentList data={appointmentData} editHandler={handleApptEdit} />
         {appointmentForm ? <AppointmentForm handler={() => setAppointmentForm(false)} /> : <Button title="Add Appointment" handler={() => setAppointmentForm(true)} styles="" /> }
       </section>
     </div>
