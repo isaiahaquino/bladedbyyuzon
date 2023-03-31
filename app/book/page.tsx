@@ -7,21 +7,26 @@ import FormInput from "@/components/FormInput"
 import FormSelect from "@/components/ForumSelect"
 
 export default function Book() {
-  type times = { startTime: string, endTime: string }
+  type apptTimes = { startTime: string, endTime: string }
+  type times = { 
+    morning: apptTimes[],
+    afternoon: apptTimes[],
+    evening: apptTimes[]
+  }
 
   const [availability, setAvailability] = useState<TApiAllAvailabilitiesResp>()
   const [serviceLength, setServiceLength] = useState(0)
   const [selectedAvailabilityIndex, setSelectedAvailabilityIndex] = useState<number>()
-  const [availableTimes, setAvailabileTimes] = useState([{ startTime: "", endTime: ""}])
-  const [selectedTime, setSelectedTime] = useState<times>()
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [phoneNum, setPhoneNum] = useState("")
+  const [availableTimes, setAvailabileTimes] = useState<times>()
+  const [selectedTime, setSelectedTime] = useState<apptTimes>()
+  const [firstName, setFirstName] = useState<string>()
+  const [lastName, setLastName] = useState<string>()
+  const [phoneNum, setPhoneNum] = useState<string>()
 
 
   useEffect(() => {
     const getAvail = async () => {
-      const res = await fetch('/api/availability', {
+      const res = await fetch('/api/availability/accepted', {
         method: "GET",
       })
       return res.json()
@@ -34,34 +39,36 @@ export default function Book() {
     findAvailableTimes()
   }, [selectedAvailabilityIndex])
 
-  const handleSelectedDate = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedAvailabilityIndex(event.target.selectedIndex-1)
-  }
-
   const findAvailableTimes = () => {
     if (selectedAvailabilityIndex !== undefined) {
       const startTime = moment(availability?.availabilities[selectedAvailabilityIndex].startTime)
       const endTime = moment(availability?.availabilities[selectedAvailabilityIndex].endTime)
       const appointments = availability?.availabilities[selectedAvailabilityIndex].appointments
-      const availTimes = []
+      const availTimes:times = { morning: [], afternoon: [], evening: []}
       let tempStart = startTime
       let tempEnd = moment(availability?.availabilities[selectedAvailabilityIndex].startTime).add(serviceLength, "minutes")
       let tempMid = moment(availability?.availabilities[selectedAvailabilityIndex].startTime).add(serviceLength/2, "minutes")
+      // console.log(appointments)
+
       while(tempStart < endTime) {
         let clear = true
         appointments?.forEach(appt => {
-          while (clear) {
-            const apptStart = moment(appt.startTime)
-            const apptEnd = moment(appt.endTime)
-            
-            if ((tempStart > apptStart && tempStart< apptEnd) || (tempEnd > apptStart && tempEnd < apptEnd) || (tempMid > apptStart && tempMid < apptEnd)) {
-              clear = false
-              return;
-            } 
-          }
+          const apptStart = moment(appt.startTime)
+          const apptEnd = moment(appt.endTime)
+          
+          if ((tempStart > apptStart && tempStart< apptEnd) || (tempEnd > apptStart && tempEnd < apptEnd) || (tempMid > apptStart && tempMid < apptEnd)) {
+            clear = false
+            return;
+          } 
         })
         if (clear) {
-          availTimes.push({ startTime: tempStart.format(), endTime: tempEnd.format()})
+          if (tempStart.hours() > 6 && tempStart.hours() < 12) {
+            availTimes.morning.push({ startTime: tempStart.format(), endTime: tempEnd.format()})
+          } else if (tempStart.hours() >= 12 && tempStart.hours() < 18) {
+            availTimes.afternoon.push({ startTime: tempStart.format(), endTime: tempEnd.format()})
+          } else {
+            availTimes.evening.push({ startTime: tempStart.format(), endTime: tempEnd.format()})
+          }
         }
         tempStart.add(30, "minutes")
         tempMid.add(30, "minutes")
@@ -73,13 +80,14 @@ export default function Book() {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
-    if (selectedTime === undefined) {
+    if (firstName === undefined || 
+        lastName === undefined ||
+        phoneNum === undefined ||
+        selectedTime === undefined ||
+        availability === undefined || 
+        selectedAvailabilityIndex === undefined) {
       return;
-    } else if (availability === undefined) {
-      return;
-    } else if (selectedAvailabilityIndex === undefined) {
-      return;
-    }
+    } 
     const data: TApiSingleAppointmentReq = {
       startTime: new Date(selectedTime?.startTime),
       endTime: new Date(selectedTime?.endTime),
@@ -90,7 +98,15 @@ export default function Book() {
       availId: availability?.availabilities[selectedAvailabilityIndex].id,
     }
     const postAppt = async () => {
-      console.log(data)
+      const res = await fetch(`/api/appointments`, { 
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      if (res.ok) {
+        alert("Appointment created!")
+      } else {
+        alert(res.statusText)
+      }
     }
     postAppt()
   }
@@ -102,9 +118,9 @@ export default function Book() {
       </section>
 
       <section className="my-10">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-serif">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-serif relative">
           <fieldset className="flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded">
-            <h1>Please select a service:</h1>
+            <h1 className="text-lg">Please select a service:</h1>
             <FormSelect props={{ name: "service", defaultValue: 0, label: "", selectId: "formService", onChange: (event: React.ChangeEvent<HTMLSelectElement>) => setServiceLength(parseInt(event.target.options[event.target.selectedIndex].value)), required: true }}>
               <option disabled value={0}>-- select an option --</option>
               <option value={45}>Fade (45 min)</option>
@@ -114,8 +130,8 @@ export default function Book() {
             </FormSelect>
           </fieldset>
 
-          <fieldset className={`flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${serviceLength === 0 ? "hidden" : "flex"}`}>
-            <h1>Please select a date:</h1>
+          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${serviceLength === 0 ? "invisible" : "visible z-0 opacity-100 translate-y-10"}`}>
+            <h1 className="text-lg">Please select a date:</h1>
             <FormSelect props={{ name: "date", defaultValue: 0, label: "", selectId: "formDate", onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {setSelectedAvailabilityIndex(event.target.selectedIndex-1)}, required: true}}>
               <option disabled value={0}>-- select an option --</option>
               {availability?.availabilities.map((availability) => (
@@ -124,31 +140,60 @@ export default function Book() {
             </FormSelect>
           </fieldset>
 
-          <fieldset className={`flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${selectedAvailabilityIndex === undefined ? "hidden" : "flex"}`}>
-            {/* Select Time Component */}
-            <h1>Please select a time</h1>
-            <div className="">
-              {availableTimes.map((slot, index) => (
-                <button 
-                  className="min-w-[6rem] py-2 bg-grey text-black border-black border-2 rounded-xl"
-                  type="button" 
-                  key={index} 
-                  onClick={() => setSelectedTime(slot)}>
-                    {moment(slot.startTime).format("LT").toLowerCase()}
-                </button>
-              ))}
+          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${selectedAvailabilityIndex === undefined ? "invisible" : "visible z-0 opacity-100 translate-y-10"}`}>
+            <h1 className="text-lg">Availability on {selectedAvailabilityIndex === undefined ? null : moment(availability?.availabilities[selectedAvailabilityIndex].date).format("ddd, MMMM DD")}</h1>
+            <div className="flex flex-col gap-2">
+
+              <h1>Morning</h1>
+              <div className="flex flex-wrap gap-2 relative">
+                {availableTimes?.morning.map((slot, index) => (
+                  <button 
+                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                    type="button" 
+                    key={index} 
+                    onClick={() => setSelectedTime(slot)}>
+                      {moment(slot.startTime).format("LT").toLowerCase()}
+                  </button>
+                ))}
+              </div>
+              
+              <h1>Afternoon</h1>
+              <div className="flex flex-wrap gap-2 relative">
+                {availableTimes?.afternoon.map((slot, index) => (
+                  <button 
+                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                    type="button" 
+                    key={index} 
+                    onClick={() => setSelectedTime(slot)}>
+                      {moment(slot.startTime).format("LT").toLowerCase()}
+                  </button>
+                ))}
+              </div>
+              
+              <h1>Evening</h1>
+              <div className="flex flex-wrap gap-2 relative">
+                {availableTimes?.evening.map((slot, index) => (
+                  <button 
+                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                    type="button" 
+                    key={index} 
+                    onClick={() => setSelectedTime(slot)}>
+                      {moment(slot.startTime).format("LT").toLowerCase()}
+                  </button>
+                ))}
+              </div>
             </div>
           </fieldset>
 
-          <fieldset className={`flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${selectedTime === undefined ? "hidden" : "flex"}`}>
+          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${selectedTime === undefined ? "invisible" : "visible z-0 opacity-100 translate-y-10"}`}>
             {/* Customer Info */}
-            <h1>Enter your details below</h1>
+            <h1 className="text-lg">Enter your details below</h1>
             <FormInput attributes={{name: "firstName", label: "First Name", inputId: "formFirstName", type: "text", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value), required: true }} />
             <FormInput attributes={{name: "lastName", label: "Last Name", inputId: "formLastName", type: "text", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value), required: false }} />
             <FormInput attributes={{name: "phoneNum", label: "Phone Number", inputId: "formPhoneNum", type: "tel", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setPhoneNum(e.target.value), pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}", placeholder: "123-413-1345", required: true }} />
           </fieldset>
 
-          <fieldset className={`${(firstName || lastName || phoneNum) ? "block" : "hidden"}`}>
+          <fieldset className={`w-full relative -z-10 opacity-0 transition duration-500 ease-in-out ${(firstName === undefined || lastName === undefined || phoneNum === undefined) ? "invisible" : "visible z-0 opacity-100 "}`}>
             <input type="submit" value="Book Appointment" className="w-full py-3 font-serif font-semibold text-xl bg-yellow px-6 text-grey-dark rounded"/>
           </fieldset>
         </form>
