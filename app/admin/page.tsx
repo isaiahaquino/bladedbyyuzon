@@ -84,6 +84,7 @@ export default function AdminHome() {
       {/* <section className="mt-[5rem]">
         <h1 className="text-3xl text-grey">Summary</h1>
       </section> */}
+      <h1>TODO: MAKE SURE AVAIL TIME IS SET TO 30 MIN IMCREMENTS</h1>
 
       <section className="my-10 relative">
         {availabilityEdit ? <AvailabilityEdit handler={() => setAvailabilityEdit(false)} data={availabilityEditData} /> : null}
