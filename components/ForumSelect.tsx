@@ -17,7 +17,7 @@ export default function FormSelect({ props, children }:{ props: IFormSelect, chi
         {props.label}
       </label>
       <select
-        className="w-full h-[3rem] py-2 text-center bg-grey-dark border-[2px] border-black rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none"
+        className="w-full h-[3rem] py-2 text-center bg-grey-dark border-[2px] border-black rounded invalid:border-red focus:invalid:border-red focus:border-white focus:outline-none"
         id={props.selectId}
         name={props.name}
         onChange={props.onChange}

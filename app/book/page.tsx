@@ -141,40 +141,45 @@ export default function Book() {
           </fieldset>
 
           <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${selectedAvailabilityIndex === undefined ? "invisible" : "visible z-0 opacity-100 translate-y-10"}`}>
-            <h1 className="text-lg">Availability on {selectedAvailabilityIndex === undefined ? null : moment(availability?.availabilities[selectedAvailabilityIndex].date).format("ddd, MMMM DD")}</h1>
-            <div className="flex flex-col gap-2">
-
-              <h1>Morning</h1>
-              <div className="flex flex-wrap gap-2 relative">
-                {availableTimes?.morning.map((slot, index) => (
-                  <button 
-                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
-                    type="button" 
-                    key={index} 
-                    onClick={() => setSelectedTime(slot)}>
-                      {moment(slot.startTime).format("LT").toLowerCase()}
-                  </button>
-                ))}
+            <h1 className="text-lg">Availability on <strong className="text-yellow font-medium">{selectedAvailabilityIndex === undefined ? null : moment(availability?.availabilities[selectedAvailabilityIndex].date).format("ddd, MMMM DD")}</strong></h1>
+            <div className="flex flex-col gap-6">
+              
+              <div>
+                <h1>Morning</h1>
+                <div className="flex flex-wrap gap-2 my-2 relative">
+                  {availableTimes?.morning.map((slot, index) => (
+                    <button 
+                      className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                      type="button" 
+                      key={index} 
+                      onClick={() => setSelectedTime(slot)}>
+                        {moment(slot.startTime).format("LT").toLowerCase()}
+                    </button>
+                  ))}
+                </div>
               </div>
               
+              <div>
               <h1>Afternoon</h1>
-              <div className="flex flex-wrap gap-2 relative">
+              <div className="flex flex-wrap gap-2 my-2 relative">
                 {availableTimes?.afternoon.map((slot, index) => (
                   <button 
-                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
                     type="button" 
                     key={index} 
                     onClick={() => setSelectedTime(slot)}>
                       {moment(slot.startTime).format("LT").toLowerCase()}
                   </button>
                 ))}
+              </div>
               </div>
               
+              <div>
               <h1>Evening</h1>
-              <div className="flex flex-wrap gap-2 relative">
+              <div className="flex flex-wrap gap-2 my-2 relative">
                 {availableTimes?.evening.map((slot, index) => (
                   <button 
-                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl transtition duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl hover:bg-white hover:shadow-xl hover:-translate-y-1 transtition-all duration-300 ease-in-out ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
                     type="button" 
                     key={index} 
                     onClick={() => setSelectedTime(slot)}>
@@ -182,6 +187,8 @@ export default function Book() {
                   </button>
                 ))}
               </div>
+              </div>
+              
             </div>
           </fieldset>
 
@@ -194,7 +201,7 @@ export default function Book() {
           </fieldset>
 
           <fieldset className={`w-full relative -z-10 opacity-0 transition duration-500 ease-in-out ${(firstName === undefined || lastName === undefined || phoneNum === undefined) ? "invisible" : "visible z-0 opacity-100 "}`}>
-            <input type="submit" value="Book Appointment" className="w-full py-3 font-serif font-semibold text-xl bg-yellow px-6 text-grey-dark rounded"/>
+            <input type="submit" value="Book Appointment" className="w-full py-3 font-serif font-semibold text-xl bg-yellow hover:bg-white px-6 text-grey-dark rounded transition duration-300 ease-in-out"/>
           </fieldset>
         </form>
       </section>

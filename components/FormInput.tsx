@@ -21,7 +21,7 @@ export default function FormInput(props:IFormInput) {
         {props.attributes.label}
       </label>
       <input 
-        className="py-2 px-7 w-full h-[3rem] bg-grey-dark border-[2px] border-black rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
+        className="py-2 px-7 w-full h-[3rem] bg-grey-dark border-[2px] border-black rounded focus:invalid:border-red focus:border-yellow focus:valid:border-white focus:outline-none" 
         id={props.attributes.inputId} 
         name={props.attributes.name}
         type={props.attributes.type}
