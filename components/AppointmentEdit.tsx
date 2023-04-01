@@ -8,7 +8,7 @@ import { TApiAllAvailabilitiesResp, TApiSingleAppointmentReq } from "@/types"
 
 export default function AppointmentEdit(props: { handler: any, data: any }) {
   const [availDates, setAvailDates] = useState<TApiAllAvailabilitiesResp>({availabilities: []})
-  const [availId, setAvailId] = useState<unknown>()
+  const [availId, setAvailId] = useState<unknown>(props.data.id)
   const [availDate, setAvailDate] = useState<unknown>(moment(props.data.startTime).format("YYYY-MM-DD"))
   const [availStart, setAvailStart] = useState<unknown>()
   const [availEnd, setAvailEnd] = useState<unknown>()
@@ -79,9 +79,9 @@ export default function AppointmentEdit(props: { handler: any, data: any }) {
         <fieldset className="flex gap-4">
           <div className="relative">
             <label className="absolute top-[-0.5rem] z-10 left-3 bg-black px-2 text-xs" htmlFor="availId">Select Date:</label>
-            <select id="apptFormAvail" name="availId" onChange={handleSelectedAvail} className="w-[10rem] h-[3rem] py-2 text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" required>
+            <select id="apptFormAvail" name="availId" defaultValue={availId?availId.toString():0} onChange={handleSelectedAvail} className="w-[10rem] h-[3rem] py-2 text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" required>
               {availDates.availabilities.map((avail) => (
-                <option data-id={avail.id} data-date={moment(avail.date).format("YYYY-MM-DD")} data-start={moment(avail.startTime).format("LT")} data-end={moment(avail.startTime).format("LT")} key={avail.id}>{moment(avail.date).format("ddd, MMM DD")}</option>
+                <option value={avail.id} data-id={avail.id} data-date={moment(avail.date).format("YYYY-MM-DD")} data-start={moment(avail.startTime).format("LT")} data-end={moment(avail.startTime).format("LT")} key={avail.id}>{moment(avail.date).format("ddd, MMM DD")}</option>
               ))}
             </select>
           </div>
