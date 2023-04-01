@@ -5,28 +5,14 @@ export async function GET(request:NextRequest, {params}:any) {
   try {
     const id = params.id as string
     const availability = await prisma.availability.findUnique({
-      where: {
-        id: id
-      },
+      where: { id: id },
       select: {
         id: true,
         date: true,
         startTime: true,
         endTime: true,
         appointments: {
-          orderBy: {
-            startTime: 'desc'
-          },
-          select: {
-            id: true,
-            createdAt: true,
-            startTime: true,
-            endTime: true,
-            status: true,
-            firstName: true,
-            lastName: true,
-            phoneNum: true,
-          }
+          orderBy: { startTime: 'desc' }
         }
       }
     })
@@ -49,9 +35,7 @@ export async function PUT(request: NextRequest, {params}:any) {
       return new Response('Error with start/end times.', { status: 400 })
     }
     const updateAvailability = await prisma.availability.update({
-      where: {
-        id: id,
-      },
+      where: { id: id },
       data: {
         startTime: availability.startTime,
         endTime: availability.endTime

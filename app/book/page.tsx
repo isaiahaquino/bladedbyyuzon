@@ -26,7 +26,7 @@ export default function Book() {
 
   useEffect(() => {
     const getAvail = async () => {
-      const res = await fetch('/api/availability/accepted', {
+      const res = await fetch('/api/availability', {
         method: "GET",
       })
       return res.json()
@@ -36,8 +36,47 @@ export default function Book() {
   }, [])
 
   useEffect(() => {
-    findAvailableTimes()
-  }, [selectedAvailabilityIndex])
+    if (selectedAvailabilityIndex !== undefined) {
+      const startTime = moment(availability?.availabilities[selectedAvailabilityIndex].startTime)
+      const endTime = moment(availability?.availabilities[selectedAvailabilityIndex].endTime)
+      const appointments = availability?.availabilities[selectedAvailabilityIndex].appointments
+      const availTimes:times = { morning: [], afternoon: [], evening: []}
+      let tempStart = startTime
+      let tempEnd = moment(availability?.availabilities[selectedAvailabilityIndex].startTime).add(serviceLength, "minutes")
+      let tempMid = moment(availability?.availabilities[selectedAvailabilityIndex].startTime).add(serviceLength/2, "minutes")
+      // console.log(appointments)
+
+      while(tempStart < endTime) {
+        let clear = true
+        appointments?.forEach(appt => {
+          if (appt.status !== 'accepted') {
+            return;
+          }
+
+          const apptStart = moment(appt.startTime)
+          const apptEnd = moment(appt.endTime)
+          
+          if ((tempStart > apptStart && tempStart< apptEnd) || (tempEnd > apptStart && tempEnd < apptEnd) || (tempMid > apptStart && tempMid < apptEnd)) {
+            clear = false
+            return;
+          } 
+        })
+        if (clear) {
+          if (tempStart.hours() > 6 && tempStart.hours() < 12) {
+            availTimes.morning.push({ startTime: tempStart.format(), endTime: tempEnd.format()})
+          } else if (tempStart.hours() >= 12 && tempStart.hours() < 18) {
+            availTimes.afternoon.push({ startTime: tempStart.format(), endTime: tempEnd.format()})
+          } else {
+            availTimes.evening.push({ startTime: tempStart.format(), endTime: tempEnd.format()})
+          }
+        }
+        tempStart.add(30, "minutes")
+        tempMid.add(30, "minutes")
+        tempEnd.add(30, "minutes")
+      }
+      setAvailabileTimes(availTimes)
+    }
+  }, [selectedAvailabilityIndex, availability, serviceLength])
 
   const findAvailableTimes = () => {
     if (selectedAvailabilityIndex !== undefined) {
@@ -141,7 +180,7 @@ export default function Book() {
           </fieldset>
 
           <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded ${selectedAvailabilityIndex === undefined ? "invisible" : "visible z-0 opacity-100 translate-y-10"}`}>
-            <h1 className="text-lg">Availability on <strong className="text-yellow font-medium">{selectedAvailabilityIndex === undefined ? null : moment(availability?.availabilities[selectedAvailabilityIndex].date).format("ddd, MMMM DD")}</strong></h1>
+            <h1 className="text-lg">Availability on <strong className="text-yellow font-medium">{selectedAvailabilityIndex === undefined ? null : moment(availability?.availabilities[selectedAvailabilityIndex].date).format("dddd, MMMM DD")}</strong></h1>
             <div className="flex flex-col gap-6">
               
               <div>

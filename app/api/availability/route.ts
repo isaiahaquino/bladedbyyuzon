@@ -8,22 +8,16 @@ export async function GET() {
   try {
     const availabilities = await prisma.availability.findMany({
       where: {
-        date: {
-          gte: new Date()
-        }
+        date: { gte: new Date() }
       },
-      orderBy: {
-        date: 'asc'
-      },
+      orderBy: { date: 'asc' },
       select: {
         id: true,
         date: true,
         startTime: true,
         endTime: true,
         appointments: {
-          orderBy: {
-            startTime: 'asc'
-          }
+          orderBy: { startTime: 'asc' }
         }
       }
     }) 

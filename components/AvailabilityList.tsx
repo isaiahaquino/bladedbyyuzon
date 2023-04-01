@@ -38,8 +38,13 @@ export default function AvailabilityList(props:IAvail) {
                     {
                       avail.appointments.map((appt) => (
                         <li key={appt.id}>
-                          {`${moment(appt.startTime).format("LT")}-${moment(appt.endTime).format("LT")}`}
+                          {appt.status === "accepted" ? (
+                            <p>
+                              {`${moment(appt.startTime).format("LT")}-${moment(appt.endTime).format("LT")}`}
+                            </p>
+                          ) : (<></>) }
                         </li>
+                        
                       ))
                     }
                   </ul>  

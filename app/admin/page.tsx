@@ -56,7 +56,7 @@ export default function AdminHome() {
   // Table Tabs
   const availabilityTabs = {
     tabs: [
-      {title: 'Upcoming', handler: setAvailabilityCategory, slug: 'accepted'},
+      {title: 'Upcoming', handler: setAvailabilityCategory, slug: ''},
       {title: 'Expired', handler: setAvailabilityCategory, slug: 'expired'}
     ]
   }
