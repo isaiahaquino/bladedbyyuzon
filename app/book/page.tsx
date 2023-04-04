@@ -5,15 +5,16 @@ import { TApiAllAvailabilitiesResp, TApiSingleAppointmentReq } from "@/types"
 import moment from "moment"
 import FormInput from "@/components/FormInput"
 import FormSelect from "@/components/ForumSelect"
+import { useRouter } from "next/navigation"
+
+type apptTimes = { startTime: string, endTime: string }
+type times = { 
+  morning: apptTimes[],
+  afternoon: apptTimes[],
+  evening: apptTimes[]
+}
 
 export default function Book() {
-  type apptTimes = { startTime: string, endTime: string }
-  type times = { 
-    morning: apptTimes[],
-    afternoon: apptTimes[],
-    evening: apptTimes[]
-  }
-
   const [availability, setAvailability] = useState<TApiAllAvailabilitiesResp>()
   const [serviceLength, setServiceLength] = useState(0)
   const [selectedAvailabilityIndex, setSelectedAvailabilityIndex] = useState<number>()
@@ -24,6 +25,7 @@ export default function Book() {
   const [phoneNum, setPhoneNum] = useState<string>()
   const [formError, setFormError] = useState<string>()
 
+  const router = useRouter()
 
   useEffect(() => {
     const getAvail = async () => {
@@ -105,7 +107,7 @@ export default function Book() {
         body: JSON.stringify(data)
       })
       if (res.ok) {
-        alert("Appointment created!")
+        router.push("/confirmation")
       } else {
         alert(res.statusText)
       }
