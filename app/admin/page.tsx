@@ -22,7 +22,7 @@ export default function AdminHome() {
   // Modals
   const [availabilityForm, setAvailabilityForm] = useState(false)
   const [availabilityEdit, setAvailabilityEdit] = useState(false)
-  const [availabilityEditData, setAvailabilityEditData] = useState({})
+  const [availabilityEditData, setAvailabilityEditData] = useState<TSingleAvailability>()
   const [appointmentForm, setAppointmentForm] = useState(false)
   const [appointmentEdit, setAppointmentEdit] = useState(false)
   const [appointmentEditData, setAppointmentEditData] = useState<TSingleAppointment>()

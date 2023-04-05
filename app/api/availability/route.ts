@@ -2,13 +2,14 @@ import { prisma } from "@/prisma/client";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import type { TApiSingleAvailabilityReq } from "@/types";
+import moment from "moment";
 
 // GET all availabilites
 export async function GET() {
   try {
     const availabilities = await prisma.availability.findMany({
       where: {
-        date: { gte: new Date() }
+        date: { gte: moment().format("YYYY-MM-DDT00:00:00Z") }
       },
       orderBy: { date: 'asc' },
       select: {

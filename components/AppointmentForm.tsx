@@ -4,6 +4,8 @@ import Button from "./Button"
 import { useEffect, useState } from "react"
 import moment from "moment"
 import { TApiAllAvailabilitiesResp, TApiSingleAppointmentReq } from "@/types"
+import FormSelect from "./ForumSelect"
+import FormInput from "./FormInput"
 
 
 export default function AppointmentForm(props: { handler: any }) {
@@ -17,7 +19,7 @@ export default function AppointmentForm(props: { handler: any }) {
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
   const [phoneNum, setPhoneNum] = useState<string>("")
-  const [status, setStatus] = useState<string>("pending")
+  const [status, setStatus] = useState("accepted")
   
 
   useEffect(() => {
@@ -74,74 +76,40 @@ export default function AppointmentForm(props: { handler: any }) {
   }
 
   return (
-    <div className="bg-black w-fill py-4 px-6 flex flex-col gap-4 items-center border-[2px] rounded border-grey-dark shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
+    <div className="bg-grey-dark w-[calc(100vw-2rem)] py-4 px-6 flex flex-col gap-4 items-center border-[2px] roundedshadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
       <h1 className="text-2xl text-grey py-2 border-b-grey-dark border-b-2">Create New Appointment</h1>
       <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-4 text-grey my-6">
         <fieldset className="flex gap-4">
-          <div className="relative">
-            <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="availId">Select Date:</label>
-            <select id="apptFormAvail" name="availId" onChange={handleSelectedAvail} className="w-[10rem] h-[3rem] py-2 text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" required>
-              {availDates.availabilities.map((avail) => (
-                <option data-id={avail.id} data-date={moment(avail.date).format("YYYY-MM-DD")} data-start={moment(avail.startTime).format("LT")} data-end={moment(avail.endTime).format("LT")} key={avail.id}>{moment(avail.date).format("ddd, MMM DD")}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <h1>Availability:</h1>
+          <FormSelect props={{ name: "avialId", selectId: "apptFormAvial", label: "Select Date:", onChange: handleSelectedAvail, required: true }}>
+            {availDates.availabilities.map((avail) => (
+              <option data-id={avail.id} data-date={moment(avail.date).format("YYYY-MM-DD")} data-start={moment(avail.startTime).format("LT")} data-end={moment(avail.endTime).format("LT")} key={avail.id}>{moment(avail.date).format("ddd, MMM DD")}</option>
+            ))}
+          </FormSelect>
+          <div className="w-full">
+            <h1 className="text-yellow">Availability:</h1>
             <p>{`${availStart}`} to {`${availEnd}`}</p>
           </div>
         </fieldset>
+
         <fieldset className="flex gap-4">
-          <div className="relative">
-            <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="firstName">First Name:</label>
-            <input type="text" name="firstName" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} required className="py-2 px-4 w-full h-[3rem] bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none"></input>
-          </div>
-          <div className="relative">
-            <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="lastName">Last Name:</label>
-            <input type="text" name="lastName" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} className="py-2 px-4 w-full h-[3rem] bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none"></input>
-          </div>
+          <FormInput attributes={{ name: "firstName", label: "First Name:", inputId: "apptFormFirstName", value: firstName, type: "text", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value), required: true }} />
+          <FormInput attributes={{ name: "lastName", label: "Last Name:", inputId: "apptFormLastName", value: lastName, type: "text", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value), required: true }} />
         </fieldset>
+
         <fieldset className="flex gap-4">
-          <div className="relative">
-            <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="startTime">Select a Start Time:</label>
-            <input 
-              className="py-2 px-7 w-full h-[3rem] text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
-              name="startTime" 
-              id="startTime" 
-              type="time" 
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)} 
-              required 
-            />
-          </div>
-          <div className="relative">
-            <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="endTime">Select a End Time:</label>
-            <input 
-              className="py-2 px-7 w-full h-[3rem] text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" 
-              name="endTime" 
-              id="endTime" 
-              type="time"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)} 
-              required 
-            />
-          </div>
+          <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "apptFormStartTime", value: startTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), required: true }} />
+          <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "apptFormEndTime", value: endTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), required: true }} />
         </fieldset>
-        <div className="flex gap-4">
-          <div className="relative w-full">
-            <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="status">Status:</label>
-            <select id="status" name="status" defaultValue="pending" onChange={(e) => setStatus(e.target.value)} required className="w-full h-[3rem] py-2 text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none">
-              <option value="accepted">Accepted</option>
-              <option value="pending">Pending</option>
-              <option value="declined">Declined</option>
-            </select>
-          </div>
-          <div className="relative w-full">
-            <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="phoneNum">Phone Number:</label>
-            <input type="tel" id="phoneNum" name="phoneNum" placeholder="619-555-2424" value={phoneNum} onChange={(e) => setPhoneNum(e.target.value)} required className="w-full h-[3rem] px-4 py-2 bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none"></input>
-          </div>
-        </div>
-        
+
+
+        <fieldset className="flex gap-4">
+          <FormSelect props={{ name: "status", selectId: "apptFormStatus", label: "Status:", defaultValue: "accepted", onChange: (e:React.ChangeEvent<HTMLSelectElement>) => setStatus(e.target.value), required: true }}>
+            <option value="accepted">Accepted</option>
+            <option value="pending">Pending</option>
+            <option value="declined">Declined</option>
+          </FormSelect>
+          <FormInput attributes={{ name: "phoneNum", label: "Phone Number:", inputId: "apptFormPhoneNum", value: phoneNum, type: "tel", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setPhoneNum(e.target.value), required: true, styles: "w-[11rem]" }} />
+        </fieldset> 
        
         <div className="flex gap-4 justify-center my-4">
           <Button title="Cancel" handler={props.handler} styles="px-6" />

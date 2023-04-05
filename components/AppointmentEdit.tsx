@@ -3,7 +3,7 @@
 import Button from "./Button"
 import { ChangeEvent, useEffect, useState } from "react"
 import moment from "moment"
-import { TSingleAvailability, TSingleAppointment, TStatus, TApiSingleAvailabilityResp } from "@/types"
+import { TSingleAppointment, TStatus, TApiSingleAvailabilityResp } from "@/types"
 import FormSelect from "./ForumSelect"
 import FormInput from "./FormInput"
 
@@ -26,7 +26,7 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
     }
     getDates()
       .then(res => setAvail(res))
-  }, [])
+  }, [props.data?.availId])
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -57,15 +57,15 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
   }
 
   return (
-    <div className="bg-grey-dark w-[calc(100vw-2rem)]  py-4 px-6 flex flex-col gap-4 items-center border-[2px] rounded border-grey-dark shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
-      <h1 className="text-2xl text-grey py-2 border-b-black border-b-2 text-center">Edit Appointment for <br /><strong className="text-yellow">{props.data?.firstName} {props.data?.lastName}</strong></h1>
+    <div className="bg-grey-dark w-[calc(100vw-2rem)] py-4 px-4 flex flex-col gap-4 items-center border-[2px] rounded shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
+      <h1 className="text-2xl text-grey py-2 px-10 border-b-black border-b-2 text-center">Edit Appointment for <br /><strong className="text-yellow">{props.data?.firstName} {props.data?.lastName}</strong></h1>
       <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-6 text-grey my-6">
         <fieldset className="flex gap-4">
           <FormSelect props={{ name: "avialId", selectId: "apptFormAvial", label: "Selected Date:", defaultValue: props.data?.id, onChange: () => {}, required: true, disabled: true }}>
             <option value={props.data?.id}>{moment(props.data?.startTime).format("ddd, MMM DD")}</option>
           </FormSelect>
           <div className="w-full">
-            <h1>Accepted Appointments:</h1>
+            <h1 className="text-yellow">Accepted Appointments:</h1>
             <ul>
               {avail?.availability.appointments.map((appt) => (
                 <li key={appt.id}>
@@ -87,7 +87,7 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
             <option value="pending">Pending</option>
             <option value="declined">Declined</option>
           </FormSelect>
-          <FormInput attributes={{ name: "phoneNum", label: "Phone Number:", inputId: "apptFormPhoneNum", value: phoneNum, type: "tel", onChange: (e:ChangeEvent<HTMLInputElement>) => setPhoneNum(e.target.value), required: true }} />
+          <FormInput attributes={{ name: "phoneNum", label: "Phone Number:", inputId: "apptFormPhoneNum", value: phoneNum, type: "tel", onChange: (e:ChangeEvent<HTMLInputElement>) => setPhoneNum(e.target.value), required: true, styles: "w-[11rem]" }} />
         </fieldset>
         
        

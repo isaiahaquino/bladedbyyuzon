@@ -25,6 +25,28 @@ export async function GET(request:NextRequest, {params}:any) {
 export async function PUT(request: NextRequest, {params}:any) {
   try {
     const id = params.id as string
+    const lastAppointment = await prisma.appointment.findFirst({
+      where: { 
+        availId: id,
+        status: "accepted"
+      },
+      orderBy: { startTime: 'desc' },
+      select: { 
+        startTime: true,
+        endTime: true 
+      }
+    })
+    const firstAppointment = await prisma.appointment.findFirst({
+      where: { 
+        availId: id,
+        status: "accepted"
+      },
+      orderBy: { startTime: 'asc' },
+      select: { 
+        startTime: true,
+        endTime: true 
+      }
+    })
     // Updates current availability
     const data = await request.json()
     const availability = {
@@ -33,6 +55,13 @@ export async function PUT(request: NextRequest, {params}:any) {
     }
     if (availability.endTime <= availability.startTime) {
       return new Response('Error with start/end times.', { status: 400 })
+    }
+    if (lastAppointment !== null && firstAppointment !== null) {
+      if (availability.endTime < lastAppointment.endTime) {
+        return new Response('Error with end time.', { status: 400 })
+      } else if (availability.startTime > firstAppointment.startTime) {
+        return new Response('Error with start time.', { status: 400 })
+      }
     }
     const updateAvailability = await prisma.availability.update({
       where: { id: id },
