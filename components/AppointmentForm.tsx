@@ -28,7 +28,7 @@ export default function AppointmentForm(props: { handler: any }) {
       return res.json()
     }
     getDates()
-      .then(res => {
+      .then((res:TApiAllAvailabilitiesResp) => {
         setAvailDates(res)
         setAvailId(res.availabilities[0].id)
         setAvailDate(res.availabilities[0].date)
@@ -82,7 +82,7 @@ export default function AppointmentForm(props: { handler: any }) {
             <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="availId">Select Date:</label>
             <select id="apptFormAvail" name="availId" onChange={handleSelectedAvail} className="w-[10rem] h-[3rem] py-2 text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none" required>
               {availDates.availabilities.map((avail) => (
-                <option data-id={avail.id} data-date={moment(avail.date).format("YYYY-MM-DD")} data-start={moment(avail.startTime).format("LT")} data-end={moment(avail.startTime).format("LT")} key={avail.id}>{moment(avail.date).format("ddd, MMM DD")}</option>
+                <option data-id={avail.id} data-date={moment(avail.date).format("YYYY-MM-DD")} data-start={moment(avail.startTime).format("LT")} data-end={moment(avail.endTime).format("LT")} key={avail.id}>{moment(avail.date).format("ddd, MMM DD")}</option>
               ))}
             </select>
           </div>
@@ -130,7 +130,7 @@ export default function AppointmentForm(props: { handler: any }) {
         <div className="flex gap-4">
           <div className="relative w-full">
             <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="status">Status:</label>
-            <select id="status" name="status" onChange={(e) => setStatus(e.target.value)} required className="w-full h-[3rem] py-2 text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none">
+            <select id="status" name="status" defaultValue="pending" onChange={(e) => setStatus(e.target.value)} required className="w-full h-[3rem] py-2 text-center bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none">
               <option value="accepted">Accepted</option>
               <option value="pending">Pending</option>
               <option value="declined">Declined</option>
@@ -138,7 +138,7 @@ export default function AppointmentForm(props: { handler: any }) {
           </div>
           <div className="relative w-full">
             <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="phoneNum">Phone Number:</label>
-            <input type="tel" id="phoneNum" name="phoneNum" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="619-555-2424" value={phoneNum} onChange={(e) => setPhoneNum(e.target.value)} required className="w-full h-[3rem] px-4 py-2 bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none"></input>
+            <input type="tel" id="phoneNum" name="phoneNum" placeholder="619-555-2424" value={phoneNum} onChange={(e) => setPhoneNum(e.target.value)} required className="w-full h-[3rem] px-4 py-2 bg-black border-[2px] border-grey-dark rounded invalid:border-red focus:invalid:border-red focus:border-yellow focus:outline-none"></input>
           </div>
         </div>
         

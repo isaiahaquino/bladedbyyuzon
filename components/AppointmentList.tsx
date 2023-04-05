@@ -7,7 +7,7 @@ import { TbEdit, TbTrashXFilled } from "react-icons/tb"
 import DelModal from "./DelModal"
 
 interface IApptList {
-  data: TApiAllAppointmentsResp;
+  data: TApiAllAppointmentsResp | undefined;
   editHandler: any
 }
 
@@ -31,19 +31,19 @@ export default function AppointmentList(props:IApptList) {
         </thead>
         <tbody className="[&>*:nth-child(even)]:bg-white py-4">
           {
-            props.data.appointments?.map((appt) => (
-              <tr className="border-b-grey-dark border-b-[1px]" key={appt.id}>
-                <td className="text-center">{`${moment(appt.startTime).format('MMM D')}`}</td>
-                <td>{`${appt.firstName} ${appt.lastName == null ? '' : appt.lastName}`}</td>
+            props.data?.appointments?.map((appointment) => (
+              <tr className="border-b-grey-dark border-b-[1px]" key={appointment.id}>
+                <td className="text-center">{`${moment(appointment.startTime).format('MMM D')}`}</td>
+                <td>{`${appointment.firstName} ${appointment.lastName == null ? '' : appointment.lastName}`}</td>
                 <td>
-                  <div>{`${moment(appt.startTime).format('LT')}`} -</div>
-                  <div>{`${moment(appt.endTime).format('LT')}`}</div>
+                  <div>{`${moment(appointment.startTime).format('LT')}`} -</div>
+                  <div>{`${moment(appointment.endTime).format('LT')}`}</div>
                 </td>
-                <td className="text-center">{appt.status}</td>
-                <td className="text-center">{appt.phoneNum}</td>
+                <td className="text-center">{appointment.status}</td>
+                <td className="text-center">{appointment.phoneNum}</td>
                 <td className="">
-                  <button type="button" className="p-1" onClick={() => props.editHandler(appt)}><TbEdit size={25} /></button>
-                  <button type="button" className="p-1" onClick={() => setDelModal({ isOpen: true, id: appt.id, name: appt.firstName })}><TbTrashXFilled size={25} /></button>
+                  <button type="button" className="p-1" onClick={() => props.editHandler(appointment)}><TbEdit size={25} /></button>
+                  <button type="button" className="p-1" onClick={() => setDelModal({ isOpen: true, id: appointment.id, name: appointment.firstName })}><TbTrashXFilled size={25} /></button>
                 </td>
               </tr>
             ))

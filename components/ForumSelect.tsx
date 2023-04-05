@@ -5,13 +5,14 @@ interface IFormSelect {
   onChange: any
   required: boolean
   defaultValue: string | number | readonly string[] | undefined
+  disabled?: boolean
 }
 
 export default function FormSelect({ props, children }:{ props: IFormSelect, children: React.ReactNode }) {
   return (
     <div className="relative w-full">
       <label 
-        className="absolute top-[-0.5rem] left-3 bg-grey-dark px-2 text-xs" 
+        className="absolute top-[-0.5rem] z-10 left-3 bg-grey-dark px-2 text-xs" 
         htmlFor={props.name}
       >
         {props.label}
@@ -23,6 +24,7 @@ export default function FormSelect({ props, children }:{ props: IFormSelect, chi
         onChange={props.onChange}
         required={props.required}
         defaultValue={props.defaultValue}
+        disabled= {props.disabled}
       >
         {children}
       </select>

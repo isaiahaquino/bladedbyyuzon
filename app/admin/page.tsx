@@ -9,14 +9,15 @@ import AvailabilityForm from "@/components/AvailabilityForm"
 import AvailabilityEdit from "@/components/AvailabilityEdit"
 import AppointmentForm from "@/components/AppointmentForm"
 import AppointmentEdit from "@/components/AppointmentEdit"
+import { TApiAllAppointmentsResp, TApiAllAvailabilitiesResp, TSingleAppointment, TSingleAvailability } from "@/types"
 
 export default function AdminHome() {
 
   // Table data
   const [appointmentCategory, setAppointmentCategory] = useState('')
   const [availabilityCategory, setAvailabilityCategory] = useState('')
-  const [appointmentData, setAppointmentData] = useState({appointments: []})
-  const [availabilityData, setAvailabilityData] = useState({availabilities: []})
+  const [appointmentData, setAppointmentData] = useState<TApiAllAppointmentsResp>()
+  const [availabilityData, setAvailabilityData] = useState<TApiAllAvailabilitiesResp>()
 
   // Modals
   const [availabilityForm, setAvailabilityForm] = useState(false)
@@ -24,7 +25,7 @@ export default function AdminHome() {
   const [availabilityEditData, setAvailabilityEditData] = useState({})
   const [appointmentForm, setAppointmentForm] = useState(false)
   const [appointmentEdit, setAppointmentEdit] = useState(false)
-  const [appointmentEditData, setAppointmentEditData] = useState({})
+  const [appointmentEditData, setAppointmentEditData] = useState<TSingleAppointment>()
 
   // Set to dark mode
   useEffect(() => { window.document.documentElement.style.colorScheme = "dark" }, [])
@@ -34,24 +35,26 @@ export default function AdminHome() {
     const getData = async () => {
       const res = await fetch(`/api/appointments/${appointmentCategory}`, {
         method: "GET",
+        cache: "no-store",
       })
       return res.json()
     }
     getData()
       .then((data) => setAppointmentData(data))
-  }, [appointmentCategory])
+  }, [appointmentCategory, appointmentEdit, appointmentForm])
 
   // Availability List
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(`/api/availability/${availabilityCategory}`, {
         method: "GET",
+        cache: "no-store",
       })
       return res.json()
     }
     getData()
       .then((data) => setAvailabilityData(data))
-  }, [availabilityCategory, availabilityForm])
+  }, [availabilityCategory, availabilityEdit, availabilityForm])
 
   // Table Tabs
   const availabilityTabs = {
@@ -74,7 +77,7 @@ export default function AdminHome() {
     setAvailabilityEdit(true)
     setAvailabilityEditData(data)
   }
-  const handleApptEdit = (data:any) => {
+  const handleApptEdit = (data:TSingleAppointment) => {
     setAppointmentEdit(true)
     setAppointmentEditData(data)
   }
@@ -84,8 +87,7 @@ export default function AdminHome() {
       {/* <section className="mt-[5rem]">
         <h1 className="text-3xl text-grey">Summary</h1>
       </section> */}
-      <h1>TODO: MAKE SURE AVAIL TIME IS SET TO 30 MIN IMCREMENTS</h1>
-
+      
       <section className="my-10 relative">
         {availabilityEdit ? <AvailabilityEdit handler={() => setAvailabilityEdit(false)} data={availabilityEditData} /> : null}
         

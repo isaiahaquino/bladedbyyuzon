@@ -1,20 +1,25 @@
+"use client"
+
 import { TApiSingleAppointmentResp } from "@/types"
+import { useEffect, useState } from "react"
 import moment from "moment"
 import Image from "next/image"
 
+export default function ConfirmationPage() {
 
-async function getAppointment () {
-  const res = await fetch('http://localhost:3000/api/appointments/latest', { 
-    cache: "no-store",
-    method: "GET"
-  })
-  return res.json()
-}
+  const [appt, setAppt] = useState<TApiSingleAppointmentResp>()
 
-export default async function ConfirmationPage() {
-
-  const apptData = await getAppointment() as TApiSingleAppointmentResp
-  const appt = apptData.appointment
+  useEffect(() => {
+    const getAppointment = async () => {
+      const res = await fetch('/api/appointments/latest', { 
+        cache: "no-store",
+        method: "GET"
+      })
+      return res.json()
+    }
+    getAppointment()
+      .then(data => setAppt(data))
+  }, [])
 
   return (
     <div className="flex flex-col items-center my-10 px-6 text-grey gap-20">
@@ -29,19 +34,19 @@ export default async function ConfirmationPage() {
           <tbody>
             <tr>
               <td scope="row">Name:</td>
-              <td className="text-right">{appt.firstName} {appt.lastName}</td>
+              <td className="text-right">{appt?.appointment.firstName} {appt?.appointment.lastName}</td>
             </tr>
             <tr>
               <td scope="row">Phone Number:</td>
-              <td className="text-right">{appt.phoneNum}</td>
+              <td className="text-right">{appt?.appointment.phoneNum}</td>
             </tr>
             <tr>
               <td scope="row">Appointment Date:</td>
-              <td className="text-right">{moment(appt.startTime).format("dddd, MMMM DD")}</td>
+              <td className="text-right">{moment(appt?.appointment.startTime).format("dddd, MMMM DD")}</td>
             </tr>
             <tr>
               <td>Time:</td>
-              <td className="text-right">{moment(appt.startTime).format("LT")} - {moment(appt.endTime).format("LT")}</td>
+              <td className="text-right">{moment(appt?.appointment.startTime).format("LT")} - {moment(appt?.appointment.endTime).format("LT")}</td>
             </tr>
           </tbody>
         </table>

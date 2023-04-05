@@ -6,6 +6,7 @@ interface IFormInput {
     type: string
     onChange: any
     required: boolean
+    value?: any
     pattern?: string
     placeholder?: string
   }
@@ -25,6 +26,7 @@ export default function FormInput(props:IFormInput) {
         id={props.attributes.inputId} 
         name={props.attributes.name}
         type={props.attributes.type}
+        value={props.attributes.value}
         onChange={props.attributes.onChange}
         pattern={props.attributes.pattern}
         placeholder={props.attributes.placeholder}

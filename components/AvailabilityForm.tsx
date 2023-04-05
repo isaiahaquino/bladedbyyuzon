@@ -41,6 +41,7 @@ export default function AvailabilityForm(props: IAvailForm) {
   return (
     <div className="bg-black w-fill p-4 flex flex-col gap-4 items-center border-[2px] rounded border-grey-dark shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
       <h1 className="text-2xl text-grey px-4 py-2 border-b-grey-dark border-b-2">Create New Availability</h1>
+      <p>Please enter times in 30min increments</p>
       <form onSubmit={handleSubmit} className="w-full px-10 flex flex-col items-stretch gap-4 text-grey my-6">
         <div className="relative">
           <label className="absolute top-[-0.5rem] left-3 bg-black px-2 text-xs" htmlFor="avialFormDate">Select a Date:</label>
@@ -61,6 +62,7 @@ export default function AvailabilityForm(props: IAvailForm) {
             name="avialFormStartTime" 
             id="availFormStartTime" 
             type="time" 
+            step={1800}
             onChange={(e) => setStartTime(e.target.value)} 
             required 
           />
@@ -72,6 +74,7 @@ export default function AvailabilityForm(props: IAvailForm) {
             name="availFormEndTime" 
             id="availFormEndTime" 
             type="time"
+            step={1800}
             min={startTime} 
             onChange={(e) => setEndTime(e.target.value)} 
             required 

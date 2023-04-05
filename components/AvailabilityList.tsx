@@ -5,7 +5,7 @@ import { TbEdit, TbTrashXFilled } from "react-icons/tb"
 import DelModal from "./DelModal"
 
 interface IAvail {
-  data: TApiAllAvailabilitiesResp
+  data: TApiAllAvailabilitiesResp | undefined
   editHandler: any
 }
 
@@ -28,7 +28,7 @@ export default function AvailabilityList(props:IAvail) {
         </thead>
         <tbody className="[&>*:nth-child(even)]:bg-white">
           {
-            props.data.availabilities?.map((avail) => (
+            props.data?.availabilities?.map((avail) => (
               <tr className="text-center border-b-grey-dark border-b-[1px]" key={avail.id}>
                 <td>{`${moment(avail.date).format("MMM D")}`}</td>
                 <td>{`${moment(avail.startTime).format("LT")}`}</td>
