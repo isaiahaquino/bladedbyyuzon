@@ -1,14 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import moment from "moment"
 import Button from "./Button"
 import FormInput from "./FormInput"
-import { TSingleAvailability } from "@/types"
+import { TApiAllAvailabilitiesResp, TApiSingleAvailabilityResp, TSingleAvailability } from "@/types"
 
 export default function AvailabilityEdit(props: { handler: any, data: TSingleAvailability | undefined}) {
+  const [error, setError] = useState("")
+  const [availabilityData, setAvailabilityData] = useState<TApiSingleAvailabilityResp>()
   const [startTime, setStartTime] = useState(moment(props.data?.startTime).format('HH:mm'))
   const [endTime, setEndTime] = useState(moment(props.data?.endTime).format('HH:mm'))
+
+  useEffect(() => {
+    const getAvailability = async () => {
+      const res = await fetch(`/api/availability/${props.data?.id}`, { method: "GET" })
+      return res.json()
+    }
+    getAvailability()
+      .then(data => setAvailabilityData(data))
+  }, [props.data?.id])
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
@@ -21,30 +32,47 @@ export default function AvailabilityEdit(props: { handler: any, data: TSingleAva
         method: "PUT",
         body: JSON.stringify(data),
       })
-      return res
+      if (!res.ok) {
+        alert(res.statusText)
+      }
     }
     putAvail()
-      .then(res => {
-        if (!res.ok) {
-          alert(res.statusText)
-        }
-      })
+      .then()
     props.handler()
   }
   
   return (
-    <div className="bg-grey-dark w-[calc(100vw-4rem)] max-w-[26rem] p-4 flex flex-col gap-4 items-center border-[2px] rounded absolute z-40 left-[50%] -translate-x-[50%]">
+    <div className="bg-grey-dark w-[calc(100vw-4rem)] max-w-[26rem] py-4 px-2 flex flex-col gap-4 items-center border-[2px] rounded absolute z-40 left-[50%] -translate-x-[50%]">
       <h1 className="text-2xl text-grey px-6 py-2 border-b-black border-b-2 text-center">Edit Availability for <br /><strong className="text-yellow">{moment(props.data?.date).format('MMM DD')}</strong></h1>
-      <p className="text-yellow text-sm">Please enter times in 30min increments</p>
-      <form onSubmit={handleSubmit} className="w-full px-10 flex flex-col items-stretch gap-4 text-grey my-6">
-        <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "availFormStartTime", value: startTime, type: "time", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), step: 1800, styles: "text-center", required: true }} />
-        <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "availFormEndTime", value: endTime, type: "time", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), step: 1800, min: startTime, styles: "text-center", required: true }} />
+      <p className="text-white text-sm">Please enter times in 30min increments</p>
+      <div className="flex">
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <div className="flex my-4 gap-4">
+            <div className="flex-shrink-0">
+              <h2 className="text-yellow font-medium mb-1">Appointments:</h2>
+              <ul>
+                {availabilityData?.availability.appointments.map((appt) => (
+                  <li key={appt.id}>
+                    { appt.status === "accepted" ? <p className="text-sm">{moment(appt.startTime).format("LT")}-{moment(appt.endTime).format("LT")}</p> : null }
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        <div className="flex gap-4 justify-center my-4">
-          <Button title="Cancel" handler={props.handler} styles="px-6" />
-          <input type="submit" className="font-serif bg-yellow px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
-        </div>
-      </form>
+            <div className="flex flex-col gap-4">
+              <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "availFormStartTime", value: startTime, type: "time", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), step: 1800, styles: "text-center", required: true }} />
+              <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "availFormEndTime", value: endTime, type: "time", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), step: 1800, min: startTime, styles: "text-center", required: true }} />
+            </div>
+          </div>
+
+          <p className="text-red text-sm text-center">{error}</p>
+          
+          <div className="flex gap-4 justify-center my-4">
+              <Button title="Cancel" handler={props.handler} styles="px-6" />
+              <input type="submit" className="font-serif bg-yellow px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
+            </div>
+        </form>
+      </div>
     </div>
   )
 }

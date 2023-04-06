@@ -10,6 +10,7 @@ export async function GET() {
       where: { startTime: { gte: new Date() } }
     })
     return NextResponse.json({ appointments })
+    // return NextResponse.json({msg:'hello'}, {status:500})
   } catch (error) {
     return new Response('Something went wrong in GET!', { status: 500 })
   }

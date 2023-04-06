@@ -12,7 +12,7 @@ export async function GET(request:NextRequest, {params}:any) {
         startTime: true,
         endTime: true,
         appointments: {
-          orderBy: { startTime: 'desc' }
+          orderBy: { startTime: 'asc' }
         }
       }
     })

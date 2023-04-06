@@ -41,6 +41,7 @@ export default function AdminHome() {
     }
     getData()
       .then((data) => setAppointmentData(data))
+      // .then(res => console.log(res.msg))
   }, [appointmentCategory, appointmentEdit, appointmentForm])
 
   // Availability List
