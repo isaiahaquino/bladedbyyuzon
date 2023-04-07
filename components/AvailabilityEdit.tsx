@@ -14,7 +14,7 @@ export default function AvailabilityEdit(props: { handler: any, data: TSingleAva
 
   useEffect(() => {
     const getAvailability = async () => {
-      const res = await fetch(`/api/availability/${props.data?.id}`, { method: "GET" })
+      const res = await fetch(`/api/availability/${props.data?.id}/accepted`, { method: "GET" })
       return res.json()
     }
     getAvailability()
@@ -23,10 +23,23 @@ export default function AvailabilityEdit(props: { handler: any, data: TSingleAva
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault()
+    setError("")
     const data = {
       startTime: moment(props.data?.date).add(startTime).format(),
       endTime: moment(props.data?.date).add(endTime).format(),
     }
+    
+
+    if (availabilityData !== undefined) {
+      if (new Date(data.startTime) > new Date(availabilityData.availability.appointments[0].startTime) || 
+          new Date(data.endTime) < new Date(availabilityData.availability.appointments[availabilityData.availability.appointments.length-1].endTime)) {
+            setError("Conflict with existing accepted appointments.")
+      }
+    }
+    if (error !== "") {
+      return 
+    }
+
     const putAvail = async () => {
       const res = await fetch(`/api/availability/${props.data?.id}`, {
         method: "PUT",
@@ -53,7 +66,7 @@ export default function AvailabilityEdit(props: { handler: any, data: TSingleAva
               <ul>
                 {availabilityData?.availability.appointments.map((appt) => (
                   <li key={appt.id}>
-                    { appt.status === "accepted" ? <p className="text-sm">{moment(appt.startTime).format("LT")}-{moment(appt.endTime).format("LT")}</p> : null }
+                    <p className="text-sm">{moment(appt.startTime).format("LT")}-{moment(appt.endTime).format("LT")}</p>
                   </li>
                 ))}
               </ul>

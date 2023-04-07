@@ -11,6 +11,7 @@ interface IFormInput {
     placeholder?: string
     styles?: string
     min?: string | number
+    max?: string | number
     step?: string | number
   }
 }
@@ -32,6 +33,7 @@ export default function FormInput(props:IFormInput) {
         value={props.attributes.value}
         onChange={props.attributes.onChange}
         min={props.attributes.min}
+        max={props.attributes.max}
         pattern={props.attributes.pattern}
         placeholder={props.attributes.placeholder}
         required={props.attributes.required}

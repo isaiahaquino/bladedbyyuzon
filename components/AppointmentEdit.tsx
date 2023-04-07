@@ -14,6 +14,7 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
   const [endTime, setEndTime] = useState(moment(props.data?.endTime).format("HH:mm"))
   const [phoneNum, setPhoneNum] = useState(props.data?.phoneNum)
   const [status, setStatus] = useState(props.data?.status)  
+  const [error, setError] = useState("")
 
   const availDate = moment(props.data?.startTime).format("YYYY-MM-DD")
 
@@ -87,11 +88,12 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
             <option value="pending">Pending</option>
             <option value="declined">Declined</option>
           </FormSelect>
-          <FormInput attributes={{ name: "phoneNum", label: "Phone Number:", inputId: "apptFormPhoneNum", value: phoneNum, type: "tel", onChange: (e:ChangeEvent<HTMLInputElement>) => setPhoneNum(e.target.value), required: true, styles: "w-[11rem]" }} />
+          <FormInput attributes={{ name: "phoneNum", label: "Phone Number:", inputId: "apptFormPhoneNum", value: phoneNum, type: "tel", onChange: (e:ChangeEvent<HTMLInputElement>) => setPhoneNum(e.target.value), required: true, styles: "w-[12rem]" }} />
         </fieldset>
-        
+
+        <p className="text-sm text-red text-center">{error}</p>
        
-        <div className="flex gap-4 justify-center my-4">
+        <div className="flex gap-4 justify-center mb-2">
           <Button title="Cancel" handler={props.handler} styles="px-6" />
           <input type="submit" className="font-serif bg-yellow px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
         </div>
