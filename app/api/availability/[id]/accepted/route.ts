@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { prisma } from "@/prisma/client"
 
 export async function GET(request:NextRequest, {params}:any) {
   try {
@@ -15,6 +16,7 @@ export async function GET(request:NextRequest, {params}:any) {
     })
     return NextResponse.json({ availability })
   } catch (error) {
-    return NextResponse.json({ msg: 'Something went wrong in GET!' }, { status: 500 })
+    console.log(error)
+    return NextResponse.json({ msg: 'Something went wrong in GET!', err: error }, { status: 500 })
   }
 }

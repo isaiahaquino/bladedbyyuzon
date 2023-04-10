@@ -13,10 +13,10 @@ export default function AvailabilityList(props:IAvail) {
   const [delPopup, setDelPopup] = useState({isOpen: false, id: "", date: ""})
 
   return (
-    <div className="my-10 overflow-x-scroll rounded-sm relative">
+    <div className="my-10 overflow-x-scroll sm:overflow-auto rounded-sm relative">
       { delPopup.isOpen ? <DelModal handler={() => setDelPopup({isOpen: false, id: "", date: ""})} id={delPopup.id} value={delPopup.date} category="availability" /> : null }
       
-      <table className="w-fill bg-grey text-black">
+      <table className="w-[550px] bg-grey text-black">
         <thead>
           <tr className="bg-white py-10 border-b-black border-b-2">
             <th scope="col" className="px-2 min-w-[4rem]">Date</th>
