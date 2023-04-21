@@ -106,7 +106,7 @@ export default function AppointmentForm(props: { handler: any }) {
   }
 
   return (
-    <div className="bg-grey-dark w-[calc(100vw-2rem)] py-4 px-2 flex flex-col gap-4 items-center border-[2px] roundedshadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
+    <div className="bg-grey-dark w-[calc(100vw-2rem)] max-w-[28rem] py-4 px-2 flex flex-col gap-4 items-center border-[2px] roundedshadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
       <h1 className="text-2xl text-grey py-2 px-6 border-b-black border-b-2">Create New Appointment</h1>
       <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-4 text-grey my-6">
         <fieldset className="flex gap-4">

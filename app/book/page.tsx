@@ -125,12 +125,12 @@ export default function Book() {
   }
 
   return (
-    <div className='flex flex-col gap-[5rem] px-4 mt-[5rem] text-white'>
+    <div className='flex flex-col items-center gap-[5rem] px-4 mt-[5rem] text-white'>
       <section className="text-center">
         <h1 className="text-3xl font-serif">Book an Appointment</h1>
       </section>
 
-      <section className="my-10">
+      <section className="my-10 w-full md:w-[736px]">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-serif relative">
           <fieldset className="flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded">
             <h1 className="text-lg">Please select a service:</h1>

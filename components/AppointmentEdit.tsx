@@ -58,7 +58,7 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
   }
 
   return (
-    <div className="bg-grey-dark w-[calc(100vw-2rem)] py-4 px-4 flex flex-col gap-4 items-center border-[2px] rounded shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
+    <div className="bg-grey-dark w-[calc(100vw-2rem)] max-w-[28rem] py-4 px-4 flex flex-col gap-4 items-center border-[2px] rounded shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
       <h1 className="text-2xl text-grey py-2 px-10 border-b-black border-b-2 text-center">Edit Appointment for <br /><strong className="text-yellow">{props.data?.firstName} {props.data?.lastName}</strong></h1>
       <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-6 text-grey my-6">
         <fieldset className="flex gap-4">
