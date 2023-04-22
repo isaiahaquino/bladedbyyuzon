@@ -34,3 +34,10 @@ model Availability {
   endTime       DateTime
   appointments  Appointment[] 
 }
+
+model User {
+  id            Int           @id @default(sequence())
+  username      String        @unique
+  password      String 
+  name          String?
+}

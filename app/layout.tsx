@@ -1,8 +1,6 @@
 import Navbar from '@/components/Navbar'
 import './globals.css'
-import Providers from './Providers'
-import { getServerSession } from 'next-auth'
-import { authOptions } from './api/auth/[...nextauth]'
+import { Providers } from './providers'
 
 export const metadata = {
   title: 'Bladed By Yuzon',
@@ -14,7 +12,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // const session = await getServerSession(authOptions)
   return (
     <html lang="en">
       <head>
@@ -23,11 +20,11 @@ export default async function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet" />
       </head>
       <body className='bg-black h-[100vh]'>
-        {/* <Providers session={session}> */}
+        <Providers>
           <Navbar />
-
+ 
           {children}
-        {/* </Providers> */}
+        </Providers>
       </body>
     </html>
   )

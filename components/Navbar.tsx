@@ -2,14 +2,27 @@
 
 import Link from 'next/link'
 import { BiMenu, BiX } from 'react-icons/bi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { LoginButton, LogoutButton } from './Auth'
 
 export default function Navbar() {
 
   const [menu, setMenu] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
+
+  useEffect(() => {
+    const getAuth = async () => {
+      const res = await fetch('/api/auth', { method: "GET" })
+      if (res.ok) {
+        setIsAuth(true)
+      }
+      return 
+    } 
+    getAuth()
+  })
 
   return (
-    <nav className='w-screen shadow-lg'>
+    <nav className='w-screen shadow-lg relative'>
       <div className='w-full px-4 py-4 flex flex-row justify-between items-center'>
         <Link href='/' className='font-gloock text-2xl text-grey'>BladedByYuzon</Link>
 
@@ -18,7 +31,7 @@ export default function Navbar() {
         </button>
       </div>
       
-      <div className={`w-screen h-screen top-0 -left-10 z-20 flex flex-col px-4 py-4 bg-black transition duration-500 ease-in-out ${menu ? 'absolute opacity-100 translate-x-10' : 'hidden opacity-0'}`}>
+      <div className={`absolute w-full h-screen top-0 -right-10 z-20 flex flex-col px-4 py-4 bg-grey-dark transition duration-300 ease-in-out ${menu ? 'visible opacity-100 -translate-x-10' : 'invisible opacity-0'}`}>
         <button type='button' className='self-end' onClick={() => setMenu(false)}>
           <BiX size={30} color="#cfdbd5" />
         </button>
@@ -38,10 +51,14 @@ export default function Navbar() {
               Book an Appointment
             </Link>
           </li>
-          <li>
-            <Link href='/admin' onClick={() => setMenu(false)}>Admin</Link>
+          <li className='text-yellow'>
+            {isAuth ? <Link href='/admin' onClick={() => setMenu(false)}>Admin Dashboard</Link> : null}
           </li>
         </ul>
+
+        <div className='mt-auto self-center font-serif'>
+          {isAuth ? <LogoutButton /> : <LoginButton />}
+        </div>
       </div>
     </nav>
   )

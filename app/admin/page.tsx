@@ -3,7 +3,6 @@
 import AppointmentList from "@/components/AppointmentList"
 import AvailabilityList from "@/components/AvailabilityList"
 import Tabs from "@/components/Tabs"
-import Button from "@/components/Button"
 import { useState, useEffect } from "react"
 import AvailabilityForm from "@/components/AvailabilityForm"
 import AvailabilityEdit from "@/components/AvailabilityEdit"
@@ -11,6 +10,7 @@ import AppointmentForm from "@/components/AppointmentForm"
 import AppointmentEdit from "@/components/AppointmentEdit"
 import { TApiAllAppointmentsResp, TApiAllAvailabilitiesResp, TSingleAppointment, TSingleAvailability } from "@/types"
 import { MdRefresh, MdAdd } from "react-icons/md"
+import { LogoutButton } from "@/components/Auth"
 
 export default function AdminHome() {
   // Table data
