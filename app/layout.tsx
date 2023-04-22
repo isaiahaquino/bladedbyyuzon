@@ -1,6 +1,6 @@
 import Navbar from '@/components/Navbar'
 import './globals.css'
-import { Providers } from './providers'
+import { Providers } from './Providers'
 
 export const metadata = {
   title: 'Bladed By Yuzon',
