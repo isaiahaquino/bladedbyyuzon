@@ -22,7 +22,7 @@ export default function Navbar() {
   }, [menu])
 
   return (
-    <nav className='w-screen shadow-lg relative'>
+    <nav className={`w-screen shadow-lg fixed top-0 bg-black z-30`}>
       <div className='w-full px-4 py-4 flex flex-row justify-between items-center'>
         <Link href='/' className='font-gloock text-2xl text-grey'>BladedByYuzon</Link>
 

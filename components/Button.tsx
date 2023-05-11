@@ -1,7 +1,7 @@
 interface IButton {
   title: string
   handler: any
-  styles: string
+  styles?: string
 }
 
 export default function Button(props:IButton) {

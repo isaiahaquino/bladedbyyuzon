@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar'
 import './globals.css'
 import { Providers } from './Providers'
+import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'Bladed By Yuzon',
@@ -19,11 +20,13 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'use-credentials'} />
         <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet" />
       </head>
-      <body className='bg-black h-[100vh]'>
+      <body className='bg-black mt-16 relative'>
         <Providers>
           <Navbar />
  
           {children}
+
+          {/* <Footer /> */}
         </Providers>
       </body>
     </html>
