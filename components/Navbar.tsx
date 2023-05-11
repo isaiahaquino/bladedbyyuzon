@@ -19,7 +19,7 @@ export default function Navbar() {
       return 
     } 
     getAuth()
-  })
+  }, [menu])
 
   return (
     <nav className='w-screen shadow-lg relative'>
