@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { GrInstagram } from 'react-icons/gr'
 
 export default function Footer() {
   return (
-    <footer className='flex justify-center py-6'>
+    <footer className='flex justify-center py-3 bg-black'>
+      <p className='text-grey text-xs'>&copy; 2023</p>
     </footer>
   )
 }

@@ -20,13 +20,13 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={'use-credentials'} />
         <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet" />
       </head>
-      <body className='bg-black mt-16 relative'>
+      <body className='bg-white mt-12 relative'>
         <Providers>
           <Navbar />
  
           {children}
 
-          {/* <Footer /> */}
+          <Footer />
         </Providers>
       </body>
     </html>
