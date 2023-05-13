@@ -21,12 +21,12 @@ export default function FormInput(props:IFormInput) {
     <div className="relative">
       <label 
         htmlFor={props.attributes.name}
-        className="absolute top-[-0.5rem] left-3 bg-grey-dark px-2 text-xs"
+        className="absolute top-[-0.5rem] left-3 bg-white px-2 text-xs"
       >
         {props.attributes.label}
       </label>
       <input 
-        className={`${props.attributes.styles} py-2 px-7 w-full h-[3rem] bg-grey-dark border-[2px] border-black rounded focus:invalid:border-red focus:border-yellow focus:valid:border-white focus:outline-none`}
+        className={`${props.attributes.styles} py-2 px-7 w-full h-[3rem] bg-white border-[2px] border-grey focus:invalid:border-red focus:border-black focus:valid:border-green focus:outline-none`}
         id={props.attributes.inputId} 
         name={props.attributes.name}
         type={props.attributes.type}

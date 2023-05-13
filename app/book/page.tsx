@@ -125,15 +125,15 @@ export default function Book() {
   }
 
   return (
-    <div className='flex flex-col items-center gap-[5rem] px-4 mt-[5rem] text-white'>
-      <section className="text-center">
-        <h1 className="text-3xl font-serif">Book an Appointment</h1>
+    <div className='flex flex-col items-center gap-[1rem] px-8 mt-[5rem] text-black'>
+      <section className="self-start">
+        <h1 className="text-xl font-semibold font-serif">Book an Appointment</h1>
       </section>
 
       <section className="my-10 w-full md:w-[736px]">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 font-serif relative">
-          <fieldset className="flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded">
-            <h1 className="text-lg">Please select a service:</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-8 font-serif relative">
+          <fieldset className="flex flex-col gap-2">
+            <h1 className="">Service</h1>
             <FormSelect props={{ name: "service", defaultValue: 0, label: "", selectId: "formService", onChange: handleServiceSelect, required: true }}>
               <option disabled value={0}>-- select an option --</option>
               <option value={45}>Fade (45 min)</option>
@@ -143,9 +143,9 @@ export default function Book() {
             </FormSelect>
           </fieldset>
 
-          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded 
+          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-2 pb-8
                                 ${serviceLength === 0 ? "invisible" : "visible z-0 opacity-100 translate-y-10"}`}>
-            <h1 className="text-lg">Please select a date:</h1>
+            <h1 className="">Date</h1>
             <FormSelect props={{ name: "date", defaultValue: 0, label: "", selectId: "formDate", onChange: handleDateSelect, required: true}}>
               <option disabled value={0}>-- select an option --</option>
               {availability?.availabilities.map((availability) => (
@@ -154,12 +154,12 @@ export default function Book() {
             </FormSelect>
           </fieldset>
 
-          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded 
+          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-2 pt-10 border-t-[1px] border-grey
                                 ${selectedAvailabilityIndex === undefined ? "invisible" : "visible z-0 opacity-100 translate-y-10"}
                                 ${serviceLength === 0 ? "hidden" : "flex"}`}>
             <h1 className="text-lg">
               Availability on&nbsp;
-              <strong className="text-yellow font-medium">
+              <strong className="font-bold">
                 {selectedAvailabilityIndex === undefined ? null : moment(availability?.availabilities[selectedAvailabilityIndex].date).format("dddd, MMMM DD")}
               </strong>
             </h1>
@@ -170,9 +170,9 @@ export default function Book() {
                 <div className="flex flex-wrap gap-2 my-2 relative">
                   {availableTimes?.morning.map((slot, index) => (
                     <button 
-                      className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl 
-                                hover:bg-white hover:shadow-xl hover:-translate-y-1 transtition duration-300 ease-in-out 
-                                  ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                      className={`min-w-[6rem] shadow-sm py-2 text-black border-grey border-[1px] rounded-sm 
+                                hover:border-grey-dark hover:shadow transtition duration-300 ease-in-out 
+                                  ${selectedTime === slot ? "border-grey-dark bg-grey-dark text-white" : "bg-white"}`}
                       type="button" 
                       key={index} 
                       onClick={() => setSelectedTime(slot)}>
@@ -187,9 +187,9 @@ export default function Book() {
               <div className="flex flex-wrap gap-2 my-2 relative">
                 {availableTimes?.afternoon.map((slot, index) => (
                   <button 
-                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl 
-                              hover:bg-white hover:shadow-xl hover:-translate-y-1 transtition duration-300 ease-in-out 
-                                ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                    className={`min-w-[6rem] shadow-sm py-2 text-black border-grey border-[1px] rounded-sm
+                              hover:border-grey-dark hover:shadow transtition duration-300 ease-in-out 
+                                ${selectedTime === slot ? "border-grey-dark bg-grey-dark text-white" : "bg-white"}`}
                     type="button" 
                     key={index} 
                     onClick={() => setSelectedTime(slot)}>
@@ -204,9 +204,9 @@ export default function Book() {
               <div className="flex flex-wrap gap-2 my-2 relative">
                 {availableTimes?.evening.map((slot, index) => (
                   <button 
-                    className={`min-w-[6rem] shadow-sm py-2 bg-grey text-black border-black border-2 rounded-xl 
-                              hover:bg-white hover:shadow-xl hover:-translate-y-1 transtition-all duration-300 ease-in-out 
-                                ${selectedTime === slot ? "bg-yellow hover:bg-yellow" : ""}`}
+                    className={`min-w-[6rem] shadow-sm py-2 text-black border-grey border-[1px] rounded-sm
+                              hover:border-grey-dark hover:shadow transtition duration-300 ease-in-out 
+                                ${selectedTime === slot ? "border-grey-dark bg-grey-dark text-white" : "bg-white"}`}
                     type="button" 
                     key={index} 
                     onClick={() => setSelectedTime(slot)}>
@@ -219,7 +219,7 @@ export default function Book() {
             </div>
           </fieldset>
 
-          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-4 bg-grey-dark px-4 py-6 rounded 
+          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-8 border-t-[1px] pt-8 border-grey
                                 ${selectedTime === undefined ? "invisible" : "visible z-0 opacity-100 translate-y-10"}
                                 ${selectedAvailabilityIndex === undefined ? "hidden" : "flex"}`}>
             {/* Customer Info */}
@@ -237,7 +237,7 @@ export default function Book() {
             <input 
               type="submit" 
               value="Book Appointment" 
-              className="w-full mb-16 px-6 py-3 font-serif font-semibold text-xl bg-yellow hover:bg-white text-grey-dark rounded transition duration-300 ease-in-out"
+              className="w-full mb-16 px-6 py-3 font-serif text-xl bg-grey-dark text-white"
             />
           </fieldset>
         </form>
