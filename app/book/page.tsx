@@ -125,9 +125,9 @@ export default function Book() {
   }
 
   return (
-    <div className='flex flex-col items-center gap-[1rem] px-8 mt-[5rem] text-black'>
-      <section className="self-start">
-        <h1 className="text-xl font-semibold font-serif">Book an Appointment</h1>
+    <div className='flex flex-col items-center gap-[1rem] px-8 mt-[7rem] text-black'>
+      <section className="">
+        <h1 className="text-xl font-semibold font-serif">BOOK AN APPOINTMENT</h1>
       </section>
 
       <section className="my-10 w-full md:w-[736px]">
@@ -219,7 +219,7 @@ export default function Book() {
             </div>
           </fieldset>
 
-          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-8 border-t-[1px] pt-8 border-grey
+          <fieldset className={`w-full relative -z-10 -top-10 opacity-0 transition duration-300 ease-in-out flex flex-col gap-8 border-t-[1px] pt-8 border-grey bg-white
                                 ${selectedTime === undefined ? "invisible" : "visible z-0 opacity-100 translate-y-10"}
                                 ${selectedAvailabilityIndex === undefined ? "hidden" : "flex"}`}>
             {/* Customer Info */}

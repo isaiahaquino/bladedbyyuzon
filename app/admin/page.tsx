@@ -28,9 +28,6 @@ export default function AdminHome() {
   const [appointmentEdit, setAppointmentEdit] = useState(false)
   const [appointmentEditData, setAppointmentEditData] = useState<TSingleAppointment>()
 
-  // Set to dark mode
-  useEffect(() => { window.document.documentElement.style.colorScheme = "dark" }, [])
-
   // Appointment List
   useEffect(() => {
     const getData = async () => {
@@ -90,7 +87,7 @@ export default function AdminHome() {
   }
 
   return (
-    <div className="px-6 mx-auto w-screen relative">
+    <div className="px-6 mt-[5rem] mx-auto w-screen relative">
       {/* <section className="mt-[5rem]">
         <h1 className="text-3xl text-grey">Summary</h1>
       </section> */}
@@ -99,9 +96,9 @@ export default function AdminHome() {
         {availabilityEdit ? <AvailabilityEdit handler={() => setAvailabilityEdit(false)} data={availabilityEditData} /> : null}
         
         <div className="flex items-center gap-4">
-          <h1 className="text-3xl my-4 text-grey">Availability</h1>
-          <button className="p-0.5 rounded-xl border border-grey shadow-md" onClick={handleReset}><MdRefresh size={20} /></button>
-          <button className="p-0.5 rounded-xl border border-grey shadow-md" onClick={() => setAvailabilityForm(true)}><MdAdd size={20} /></button>
+          <h1 className="text-3xl my-4">Availability</h1>
+          <button className="p-0.5 rounded-xl border border-grey-dark shadow-md" onClick={handleReset}><MdRefresh size={20} /></button>
+          <button className="p-0.5 rounded-xl border border-grey-dark shadow-md" onClick={() => setAvailabilityForm(true)}><MdAdd size={20} /></button>
         </div>
         <Tabs tabs={availabilityTabs.tabs} />
         <AvailabilityList data={availabilityData} editHandler={handleAvailEdit} />
@@ -109,13 +106,13 @@ export default function AdminHome() {
         {availabilityForm ? <AvailabilityForm handler={() => setAvailabilityForm(false)} /> : <></> }
       </section>
 
-      <section className="mt-[10rem] mb-[4rem] relative">
+      <section className="mt-[6rem] mb-[17rem] relative">
         {appointmentEdit ? <AppointmentEdit handler={() => setAppointmentEdit(false)} data={appointmentEditData} /> : null }
         
         <div className="flex items-center gap-4">
-          <h1 className="text-3xl my-4 text-grey">Schedule</h1>
-          <button className="p-0.5 rounded-xl border border-grey shadow-md" onClick={handleReset}><MdRefresh size={20} /></button>
-          <button className="p-0.5 rounded-xl border border-grey shadow-md" onClick={() => setAppointmentForm(true)}><MdAdd size={20} /></button>
+          <h1 className="text-3xl my-4">Schedule</h1>
+          <button className="p-0.5 rounded-xl border border-grey-dark shadow-md" onClick={handleReset}><MdRefresh size={20} /></button>
+          <button className="p-0.5 rounded-xl border border-grey-dark shadow-md" onClick={() => setAppointmentForm(true)}><MdAdd size={20} /></button>
         </div>
         <Tabs tabs={appointmentTabs.tabs} />
         <AppointmentList data={appointmentData} editHandler={handleApptEdit} />

@@ -22,9 +22,9 @@ export default function ConfirmationPage() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center my-10 px-6 text-grey gap-20">
-      <h1 className="text-2xl mt-20">Appointment request sent</h1>
-      <section className="w-full p-6 bg-grey-dark rounded-lg">
+    <div className="flex flex-col items-center px-6 gap-16 min-h-screen">
+      <h1 className="text-2xl font-semibold mt-[7rem]">REQUEST SENT</h1>
+      <section className="w-full p-6 bg-grey rounded-lg">
         <table className="w-full">
           <thead>
             <tr>

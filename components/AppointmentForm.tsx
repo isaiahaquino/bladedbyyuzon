@@ -106,21 +106,21 @@ export default function AppointmentForm(props: { handler: any }) {
   }
 
   return (
-    <div className="bg-grey-dark w-[calc(100vw-2rem)] max-w-[28rem] py-4 px-2 flex flex-col gap-4 items-center border-[2px] roundedshadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
-      <h1 className="text-2xl text-grey py-2 px-6 border-b-black border-b-2">Create New Appointment</h1>
-      <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-4 text-grey my-6">
-        <fieldset className="flex gap-4">
+    <div className="bg-yellow w-[calc(100vw-2rem)] max-w-[28rem] py-4 px-2 flex flex-col gap-4 items-center border-[2px] roundedshadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
+      <h1 className="text-2xl text-black py-2 px-6 border-b-black border-b-2">Create New Appointment</h1>
+      <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-4 text-black my-6">
+        <fieldset className="flex gap-4 bg-yellow">
           <FormSelect props={{ name: "avialId", selectId: "apptFormAvial", label: "Select Date:", onChange: handleSelectedAvail, required: true }}>
             {availDates.availabilities.map((avail) => (
               <option data-id={avail.id} data-date={moment(avail.date).format("YYYY-MM-DD")} data-start={moment(avail.startTime).format("LT")} data-end={moment(avail.endTime).format("LT")} key={avail.id}>{moment(avail.date).format("ddd, MMM DD")}</option>
             ))}
           </FormSelect>
           <div className="flex-grow-0">
-            <h1 className="text-yellow">Availability:</h1>
+            <h1 className="text-black">Availability:</h1>
             <p className="text-sm">{`${availStart}`} to {`${availEnd}`}</p>
           </div>
           <div className="flex-shrink-0">
-              <h2 className="text-yellow">Appointments:</h2>
+              <h2 className="text-black">Appointments:</h2>
               <ul>
                 {availabilityData?.availability?.appointments.map((appt) => (
                   <li key={appt.id}>
@@ -131,18 +131,18 @@ export default function AppointmentForm(props: { handler: any }) {
             </div>
         </fieldset>
 
-        <fieldset className="flex gap-4">
+        <fieldset className="flex gap-4 bg-yellow">
           <FormInput attributes={{ name: "firstName", label: "First Name:", inputId: "apptFormFirstName", value: firstName, type: "text", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value), required: true }} />
           <FormInput attributes={{ name: "lastName", label: "Last Name:", inputId: "apptFormLastName", value: lastName, type: "text", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value), required: true }} />
         </fieldset>
 
-        <fieldset className="flex gap-4">
+        <fieldset className="flex gap-4 bg-yellow">
           <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "apptFormStartTime", value: startTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), min: moment(availStart as string, "LT").format("HH:mm"), required: true }} />
           <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "apptFormEndTime", value: endTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), min: startTime, max: moment(availEnd as string, "LT").format("HH:mm"),  required: true }} />
         </fieldset>
 
 
-        <fieldset className="flex gap-4">
+        <fieldset className="flex gap-4 bg-yellow">
           <FormSelect props={{ name: "status", selectId: "apptFormStatus", label: "Status:", defaultValue: "accepted", onChange: (e:React.ChangeEvent<HTMLSelectElement>) => setStatus(e.target.value), required: true }}>
             <option value="accepted">Accepted</option>
             <option value="pending">Pending</option>
@@ -155,7 +155,7 @@ export default function AppointmentForm(props: { handler: any }) {
        
         <div className="flex gap-4 justify-center my-2">
           <Button title="Cancel" handler={props.handler} styles="px-6" />
-          <input type="submit" className="font-serif bg-yellow px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
+          <input type="submit" className="font-serif bg-grey px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
         </div>
       </form>
     </div>    

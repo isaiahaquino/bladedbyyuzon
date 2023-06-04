@@ -11,15 +11,15 @@ interface IFormSelect {
 
 export default function FormSelect({ props, children }:{ props: IFormSelect, children: React.ReactNode }) {
   return (
-    <div className="relative w-full">
+    <div className="relative w-full bg-[inherit]">
       <label 
-        className="absolute top-[-0.5rem] z-10 left-3 bg-white px-2 text-xs" 
+        className="absolute top-[-0.5rem] z-10 left-3 bg-[inherit] px-2 text-xs" 
         htmlFor={props.name}
       >
         {props.label}
       </label>
       <select
-        className={`${props.styles} w-full h-[3rem] py-2 pl-4 bg-white border-[2px] border-grey  invalid:border-red focus:invalid:border-red focus:border-black focus:outline-none`}
+        className={`${props.styles} w-full h-[3rem] py-2 pl-4 bg-[inherit] border-[2px] border-black  invalid:border-red focus:invalid:border-red focus:border-black focus:outline-none`}
         id={props.selectId}
         name={props.name}
         onChange={props.onChange}

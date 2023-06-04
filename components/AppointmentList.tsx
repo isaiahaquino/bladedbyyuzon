@@ -18,7 +18,7 @@ export default function AppointmentList(props:IApptList) {
     <div className="my-10 overflow-x-scroll sm:overflow-auto rounded-sm relative">
       { delModal.isOpen ? <DelModal handler={() => setDelModal({isOpen: false, id: "", name: ""})} id={delModal.id} value={delModal.name} category="appointments" /> : null }
 
-      <table className="w-[550px] bg-grey text-black">
+      <table className="w-[550px] bg-grey border-[1px] border-black">
         <thead>
           <tr className="bg-white py-10 border-b-black border-b-2">
             <th scope="col" className="px-2 min-w-[5rem]">Date</th>

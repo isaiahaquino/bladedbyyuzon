@@ -18,15 +18,15 @@ interface IFormInput {
 
 export default function FormInput(props:IFormInput) {
   return (
-    <div className="relative">
+    <div className="relative text-black bg-[inherit]">
       <label 
         htmlFor={props.attributes.name}
-        className="absolute top-[-0.5rem] left-3 bg-white px-2 text-xs"
+        className="absolute top-[-0.5rem] left-3 bg-[inherit] px-2 text-xs"
       >
         {props.attributes.label}
       </label>
       <input 
-        className={`${props.attributes.styles} py-2 px-7 w-full h-[3rem] bg-white border-[2px] border-grey focus:invalid:border-red focus:border-black focus:valid:border-green focus:outline-none`}
+        className={`${props.attributes.styles} py-2 px-7 w-full h-[3rem] bg-[inherit] border-[2px] border-grey-dark focus:invalid:border-red focus:border-black focus:valid:border-green focus:outline-none`}
         id={props.attributes.inputId} 
         name={props.attributes.name}
         type={props.attributes.type}

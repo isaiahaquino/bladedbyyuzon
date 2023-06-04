@@ -9,7 +9,10 @@ export default function Home() {
       <section className='relative'>
         <Image className='absolute' src="/home/yuzon_home.jpg" fill alt="" />
         <div className='relative top-0 flex flex-col items-center justify-center gap-4 h-[calc(100vh-3rem)]'>
-          <h1 className='font-gloock text-[2.5rem] text-yellow font-bold'>BladedByYuzon</h1>
+          <div className='relative'>
+            <h1 className='font-gloock text-[2.5rem] text-yellow font-bold z-10 relative'>BladedByYuzon</h1>
+            <h1 className='font-gloock text-[2.5rem] text-black font-bold absolute top-[2px] left-[1px]'>BladedByYuzon</h1>
+          </div>
           <Link href='/book' className='py-3 px-8 bg-white text-sm font-serif'>
                 Book Now &#8605;
           </Link>
@@ -17,7 +20,7 @@ export default function Home() {
       </section>
 
       <section className='px-6 pt-8 pb-10 bg-grey-light'>
-        <p className='font-serif tracking-wide text-xl leading-10'>Hey! I'm Joseph! I'm a barber in the Chula Vista and Clairmonte neighborhoods of San Diego, CA. I offer traditional services and do them right.</p>
+        <p className='font-serif tracking-wide text-xl leading-10'>Hey! I&apos;m Joseph! I&apos;m a barber in the Chula Vista and Clairmonte neighborhoods of San Diego, CA. I offer traditional services and do them right.</p>
       </section>
 
       <section className='px-6 pt-8 pb-10 bg-white font-serif flex flex-col gap-6 text-sm'>
@@ -35,12 +38,12 @@ export default function Home() {
         </Link>
       </section>
 
-      <section>
+      {/* <section>
         <Carousel 
           imgs={['/gallery/1.jpg', '/gallery/2.jpg', '/gallery/3.jpg', '/gallery/4.jpg', '/gallery/5.jpg']}
-          height={500}
+          height={600}
         />
-      </section>
+      </section> */}
 
     </main>
   )

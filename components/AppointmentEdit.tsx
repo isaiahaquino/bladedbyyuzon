@@ -58,15 +58,15 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
   }
 
   return (
-    <div className="bg-grey-dark w-[calc(100vw-2rem)] max-w-[28rem] py-4 px-4 flex flex-col gap-4 items-center border-[2px] rounded shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
-      <h1 className="text-2xl text-grey py-2 px-10 border-b-black border-b-2 text-center">Edit Appointment for <br /><strong className="text-yellow">{props.data?.firstName} {props.data?.lastName}</strong></h1>
-      <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-6 text-grey my-6">
+    <div className="bg-yellow w-[calc(100vw-2rem)] max-w-[28rem] py-4 px-4 flex flex-col gap-4 items-center border-[2px] rounded shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
+      <h1 className="text-2xl text-black py-2 px-10 border-b-black border-b-2 text-center">Edit Appointment for <br /><strong className="text-black">{props.data?.firstName} {props.data?.lastName}</strong></h1>
+      <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-6 text-black my-6">
         <fieldset className="flex gap-4">
           <FormSelect props={{ name: "avialId", selectId: "apptFormAvial", label: "Selected Date:", defaultValue: props.data?.id, onChange: () => {}, required: true, disabled: true }}>
             <option value={props.data?.id}>{moment(props.data?.startTime).format("ddd, MMM DD")}</option>
           </FormSelect>
           <div className="w-full">
-            <h1 className="text-yellow">Accepted Appointments:</h1>
+            <h1 className="text-black font-semibold">Accepted Appointments:</h1>
             <ul>
               {avail?.availability.appointments.map((appt) => (
                 <li key={appt.id}>
@@ -95,7 +95,7 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
        
         <div className="flex gap-4 justify-center mb-2">
           <Button title="Cancel" handler={props.handler} styles="px-6" />
-          <input type="submit" className="font-serif bg-yellow px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
+          <input type="submit" className="font-serif bg-grey px-6 text-grey-dark border-[1px] rounded-sm border-grey-dark hover:bg-white hover:text-black" />
         </div>
       </form>
     </div>    

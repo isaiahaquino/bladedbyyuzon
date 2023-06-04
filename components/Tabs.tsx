@@ -22,7 +22,7 @@ export default function Tabs(props:ITabs) {
         props.tabs.map((tab, idx) => (
           <button 
             key={idx} 
-            className={`px-4 py-1 border-b-2 ${index === idx ? 'text-yellow border-b-yellow' : 'text-white'}`} 
+            className={`px-4 py-1 border-b-2 ${index === idx ? 'text-yellow border-b-yellow' : 'text-black'}`} 
             onClick={() => handleTab(tab.handler, idx, tab.slug)}
           >
             {tab.title}
