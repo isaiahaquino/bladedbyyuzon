@@ -33,17 +33,17 @@ export default function Home() {
         <p>Haircut starting below the base of the neck or chin, whether it is staying long or is being cut to a shorter length, and any transformational haircut.</p>
         <h2 className='font-semibold'>BEARD TRIM</h2>
         <p>Beard trim with scissor or clipper to shape and line up beard.</p>
-        <Link href='/book' className='mt-4 border-2 px-8 py-6 self-center text-lg rounded'>
+        <Link href='/book' className='mt-4 border-2 px-8 py-6 self-center text-lg rounded hover:bg-yellow hover:shadow-md transition-all ease-in-out duration-300'>
           Book Your Appointment
         </Link>
       </section>
 
-      {/* <section>
+      <section>
         <Carousel 
           imgs={['/gallery/1.jpg', '/gallery/2.jpg', '/gallery/3.jpg', '/gallery/4.jpg', '/gallery/5.jpg']}
           height={600}
         />
-      </section> */}
+      </section>
 
     </main>
   )
