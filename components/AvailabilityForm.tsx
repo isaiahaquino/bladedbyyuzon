@@ -59,9 +59,9 @@ export default function AvailabilityForm(props: { handler: any }) {
 
   return (
     <div className="bg-yellow w-[calc(100vw-4rem)] max-w-[26rem] p-4 flex flex-col gap-4 items-center border-[2px] rounded shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
-      <h1 className="text-2xl text-black px-6 py-2 border-b-black border-b-2">Create New Availability</h1>
+      <h1 className="text-center text-2xl text-black px-6 py-2 border-b-black border-b-2">Create New Availability</h1>
       <p className="text-black text-sm">Please enter times in 30min increments</p>
-      <form onSubmit={handleSubmit} className="w-full px-10 flex flex-col items-stretch gap-4 text-grey my-6">
+      <form onSubmit={handleSubmit} className="w-full px-10 flex flex-col items-stretch gap-4 text-grey my-6 bg-yellow">
         <FormInput attributes={{ name: "date", label: "Select a Date:", inputId: "availFormDate", value: date, type: "date", onChange: (e:ChangeEvent<HTMLInputElement>) => setDate(e.target.value), min: moment().format("YYYY-MM-DD"), styles: "text-center", required: true }} />
         <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "availFormStartTime", value: startTime, type: "time", onChange: (e:ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), step: 1800, styles: "text-center", required: true }} />
         <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "availFormEndTime", value: endTime, type: "time", onChange: (e:ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), step: 1800, min: startTime, styles: "text-center", required: true }} />

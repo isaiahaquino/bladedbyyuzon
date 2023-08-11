@@ -61,7 +61,7 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
     <div className="bg-yellow w-[calc(100vw-2rem)] max-w-[28rem] py-4 px-4 flex flex-col gap-4 items-center border-[2px] rounded shadow-xl absolute top-0 z-20 left-[50%] -translate-x-[50%]">
       <h1 className="text-2xl text-black py-2 px-10 border-b-black border-b-2 text-center">Edit Appointment for <br /><strong className="text-black">{props.data?.firstName} {props.data?.lastName}</strong></h1>
       <form onSubmit={handleSubmit} className="w-full flex flex-col items-stretch gap-6 text-black my-6">
-        <fieldset className="flex gap-4">
+        <fieldset className="flex gap-4 bg-yellow">
           <FormSelect props={{ name: "avialId", selectId: "apptFormAvial", label: "Selected Date:", defaultValue: props.data?.id, onChange: () => {}, required: true, disabled: true }}>
             <option value={props.data?.id}>{moment(props.data?.startTime).format("ddd, MMM DD")}</option>
           </FormSelect>
@@ -77,12 +77,12 @@ export default function AppointmentEdit(props: { handler: any, data: TSingleAppo
           </div>
         </fieldset>
 
-        <fieldset className="flex gap-4">
+        <fieldset className="flex gap-4 bg-yellow">
           <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "apptFormStartTime", value: startTime, type: "time", onChange: (e: ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), required: true }} />
           <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "apptFormEndTime", value: endTime, type: "time", onChange: (e: ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), required: true }} />
         </fieldset>
 
-        <fieldset className="flex gap-4">
+        <fieldset className="flex gap-4 bg-yellow">
           <FormSelect props={{ name: "status", selectId: "apptFormStatus", label: "Status:", defaultValue: props.data?.status, onChange: (e:ChangeEvent<HTMLSelectElement>) => {let value = e.target.value as TStatus; setStatus(value)}, required: true }}>
             <option value="accepted">Accepted</option>
             <option value="pending">Pending</option>

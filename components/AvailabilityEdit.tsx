@@ -72,7 +72,7 @@ export default function AvailabilityEdit(props: { handler: any, data: TSingleAva
               </ul>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 bg-yellow">
               <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "availFormStartTime", value: startTime, type: "time", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), step: 1800, styles: "text-center", required: true }} />
               <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "availFormEndTime", value: endTime, type: "time", onChange: (e:React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), step: 1800, min: startTime, styles: "text-center", required: true }} />
             </div>

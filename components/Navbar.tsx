@@ -50,15 +50,26 @@ export default function Navbar() {
 
   return (
     <nav className={`w-screen shadow-lg fixed top-[-1rem] z-20 ${nav} transition-all duration-300 ease-in-out`}>
-      <div className='absolute w-full z-20 px-4 py-3 flex flex-row justify-between items-center'>
-        <Link href='/' className='font-gloock text-2xl text-black'>BladedByYuzon</Link>
+      <div className='absolute w-full z-20 px-6 py-3 flex flex-row justify-between items-center bg-grey-dark lg:bg-opacity-0'>
+        <Link href='/' className='font-gloock text-2xl lg:text-3xl text-white lg:text-black'>BladedByYuzon</Link>
         
-        <div className={`relative ${menu ? 'invisible' : ''}`}>  
+        <div className={`relative ${menu ? 'invisible' : ''} lg:hidden`}>  
           <button type='button' className='relative p-[.1rem] bg-yellow z-10' onClick={() => setMenu(true)}>
             <BiMenu size={30} color="#242423" />
           </button> 
           <div className='absolute h-[2.1rem] w-[2.1rem] top-[.3rem] left-[.2rem] bg-black z-0'></div>
         </div>
+        <ul className='font-serif lg:flex gap-8 mr-1 my-5 text-black hidden tracking-widest'>
+            <li className='tracking-widest hover:text-yellow'>
+              {isAuth ? <Link href='/admin'>ADMIN</Link> : null}
+            </li>
+            <li>
+              {isAuth ? <LogoutButton /> : <LoginButton />}
+            </li>
+            <li className='hover:text-yellow'>
+              <Link href='/book'>BOOK</Link>
+            </li>
+          </ul>
       </div>
       
       <div className={`absolute w-[250px] top-[0.5rem] right-[1rem] z-30  transition duration-300 ease-in-out ${menu ? 'visible opacity-100 translate-y-4' : 'invisible opacity-0'}`}>

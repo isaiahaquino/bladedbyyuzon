@@ -137,8 +137,8 @@ export default function AppointmentForm(props: { handler: any }) {
         </fieldset>
 
         <fieldset className="flex gap-4 bg-yellow">
-          <FormInput attributes={{ name: "startTime", label: "Select a Start Time:", inputId: "apptFormStartTime", value: startTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), min: moment(availStart as string, "LT").format("HH:mm"), required: true }} />
-          <FormInput attributes={{ name: "endTime", label: "Select a End Time:", inputId: "apptFormEndTime", value: endTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), min: startTime, max: moment(availEnd as string, "LT").format("HH:mm"),  required: true }} />
+          <FormInput attributes={{ name: "startTime", styles: "grow",  label: "Select a Start Time:", inputId: "apptFormStartTime", value: startTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value), min: moment(availStart as string, "LT").format("HH:mm"), required: true }} />
+          <FormInput attributes={{ name: "endTime", styles: "grow", label: "Select a End Time:", inputId: "apptFormEndTime", value: endTime, type: "time", onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value), min: startTime, max: moment(availEnd as string, "LT").format("HH:mm"),  required: true }} />
         </fieldset>
 
 
