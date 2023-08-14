@@ -9,18 +9,18 @@ export default function Home() {
       <section className='relative'>
         <div className='absolute h-full w-full flex'>
           <div className='relative lg:w-1/2 w-full h-full'>
-            <Image className='relative' src="/home/yuzon_home.jpg" fill alt="" />
+            <Image className='relative' src="/home/DSC02337.jpg" fill style={{objectFit: "cover"}} alt="" />
           </div>
           <div className='relative w-1/2 h-full lg:block hidden'>
-            <div className='absolute top-[35%] left-1/4 w-1/2 h-1/4'>
-              <Image className='relative' src="/home/yuzon_home.jpg" fill alt="" />
+            <div className='absolute top-[35%] left-1/3 w-1/3 h-1/3'>
+              <Image className='relative' src="/home/yuzon_home.jpg" fill style={{objectFit: "cover"}} alt="" />
             </div>
           </div>
         </div>
         <div className='relative top-0 flex flex-col items-center justify-center gap-4 h-[100vh]'>
           <div className='relative'>
-            <h1 className='font-gloock text-[8vw] md:text-[9vw] lg:text-[9vw] text-yellow font-bold z-10 relative'>BladedByYuzon</h1>
-            <h1 className='font-gloock text-[8vw] md:text-[9vw] lg:text-[9vw] text-black font-bold absolute top-[2px] left-[1px]'>BladedByYuzon</h1>
+            <h1 className='font-gloock text-[7vw] md:text-[8vw] lg:text-[8vw] text-yellow font-bold z-10 relative'>BladedByYuzon</h1>
+            <h1 className='font-gloock text-[7vw] md:text-[8vw] lg:text-[8vw] text-black font-bold absolute top-[2px] left-[1px]'>BladedByYuzon</h1>
           </div>
           <Link href='/book' className='md:hidden py-3 px-8 bg-white text-sm font-serif'>
                 Book Now &#8605;

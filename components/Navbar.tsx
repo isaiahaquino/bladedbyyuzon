@@ -51,7 +51,7 @@ export default function Navbar() {
   return (
     <nav className={`w-screen shadow-lg fixed top-[-1rem] z-20 ${nav} transition-all duration-300 ease-in-out`}>
       <div className='absolute w-full z-20 px-6 py-3 flex flex-row justify-between items-center bg-grey-dark lg:bg-opacity-0'>
-        <Link href='/' className='font-gloock text-2xl lg:text-3xl text-white lg:text-black'>BladedByYuzon</Link>
+        <Link href='/' className='font-gloock text-2xl lg:text-3xl text-white'>BladedByYuzon</Link>
         
         <div className={`relative ${menu ? 'invisible' : ''} lg:hidden`}>  
           <button type='button' className='relative p-[.1rem] bg-yellow z-10' onClick={() => setMenu(true)}>
@@ -61,7 +61,7 @@ export default function Navbar() {
         </div>
         <ul className='font-serif lg:flex gap-8 mr-1 my-5 text-black hidden tracking-widest'>
             <li className='tracking-widest hover:text-yellow'>
-              {isAuth ? <Link href='/admin'>ADMIN</Link> : null}
+              {isAuth ? <Link className='tracking-widest' href='/admin'>ADMIN</Link> : null}
             </li>
             <li>
               {isAuth ? <LogoutButton /> : <LoginButton />}
